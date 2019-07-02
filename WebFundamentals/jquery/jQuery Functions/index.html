@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQeury Sample Page</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#addClass').click(function() {
+                $('p.addClass').addClass('red');
+            });
+            $('#removeClass').click(function() {
+                $('p.addClass').removeClass('red');
+            });
+            $('#append').click(function() {
+                $('p.append').append('<p>new paragraph appended</p>');
+            });
+            $('#slideToggle').click(function() {
+                $('img#cat').slideToggle();
+            })
+            $('#slideUp').click(function() {
+                $('img#cat').slideUp();
+            })
+            $('#slideDown').click(function() {
+                $('img#cat').slideDown();
+            })
+            $('#fadeIn').click(function() {
+                $('img#cat').fadeIn();
+            })
+            $('#fadeOut').click(function() {
+                $('img#cat').fadeOut();
+            })
+            $('#hide').click(function() {
+                $('p.hide').hide();
+            })
+            $('#show').click(function() {
+                $('p.hide').show();
+            })
+            $('#before').click(function() {
+                $('p.poo').before("<img src='poo.png' alt='poo emoji' width=25px>");
+            })
+            $('#after').click(function() {
+                $('p.poo').after("<img src='poo.png' alt='poo emoji' width=25px>");
+            })
+            $('p').click(function() {
+                var htmlString = $(this).html();
+                alert("You clicked on a paragraph that contained: "+htmlString);
+            })
+            $('#html').click(function() {
+                alert("This button does nothing; click on a paragraph instead.");
+            })
+            $('#attr').click(function() {
+                var titleStr = $('Title').html();
+                alert("Title of page is: "+titleStr);
+            })
+            $('#val').click(function() {
+                var value = $('#search').val();
+                alert("Search box says: "+value);
+            })
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div class="navbar bg-gray">
+            <p>My jQuery basic assignment!</p>
+            <div>
+                <button><-</button>
+                <button>-></button>
+                <button>X</button>
+                <button>Home</button>
+                <input id="url" type="text" placeholder="http://localhost/jQuery.html">
+                <input id="search" type="text" placeholder="search">
+            </div>
+        </div>
+        <div id="content">
+            <div>
+                <h2>AddClass</h2>
+                <button id="addClass">AddClass</button> 
+                <button id="removeClass">removeClass</button> 
+                <p class="addClass">Click the button to add class 'red' to this paragraph</p>
+            </div>
+            <div>
+                <h2>Slidetoggle</h2>
+                <button id="slideToggle">Slidetoggle</button>
+                <p>Click the button to slidetoggle a hidden image</p>
+                <img id="cat" src="cat.jpg" alt="cat picture">
+            </div>
+            <div>
+                <h2>Slide  Up/Downm</h2>
+                <button id="slideUp">Slide Up</button>
+                <button id="slideDown">Slide Down</button>
+                <p>Click the button to slide the cat pic up or down</p>
+            </div>
+            <div>
+                <h2>Slide  Up/Downm</h2>
+                <button id="fadeIn">Fade In</button>
+                <button id="fadeOut">Fade Out</button>
+                <p>Click the button to fade the cat pic in or out</p>
+            </div>
+            <div>
+                <h2>Append</h2>
+                <button id="append">Append</button>
+                <p class="append">Click the button to append a new paragraph!</p>
+            </div>
+            <div>
+                <h2>hide</h2>
+                <button id="hide">Hide</button>
+                <button id="show">show</button>
+                <p class="hide">Click on the button to hide or show me!</p>
+            </div>
+            <div>
+                <h2>before</h2>
+                <button id="before">before</button>
+                <button id="after">after</button>
+                <p class="poo">Click on the button to add a poo emoji before or after this paragraph</p>
+            </div>
+            <div>
+                <h2>HTML, ATTR, VAL</h2>
+                <button id="html">html</button>
+                <button id="attr">attr</button>
+                <button id="val">val</button>
+                <p>Click on the button get and display via .text() function</p>
+            </div>
+        </div>
+        <div class="bg-gray"></div>
+    </div>
+    
+
+    
+</body>
+</html>
