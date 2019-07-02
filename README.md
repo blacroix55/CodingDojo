@@ -1,4 +1,3 @@
-# CodingDojo
+Luke -
 
-This repo contains the files I used when taking the online, part time Python class with Coding Dojo.  
-This class started in June, 2019.
+Email your sister, Mikala, at mikalakitty@hotmail.com.
