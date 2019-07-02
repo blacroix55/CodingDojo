@@ -1,0 +1,205 @@
+C02XF104JG5J:Desktop blacroix$ cd CodingDojo
+C02XF104JG5J:CodingDojo blacroix$ git init
+Initialized empty Git repository in /Users/blacroix/Desktop/CodingDojo/.git/
+C02XF104JG5J:CodingDojo blacroix$ git add .
+C02XF104JG5J:CodingDojo blacroix$ git commit -m "initial commit"
+[master (root-commit) 62b9dbb] initial commit
+ 125 files changed, 1838 insertions(+)
+ create mode 100644 PreWork/.DS_Store
+ create mode 100755 PreWork/ninjaman 2/bluey.gif
+ create mode 100755 PreWork/ninjaman 2/ninja.gif
+ create mode 100755 PreWork/ninjaman 2/onigiri.png
+ create mode 100755 PreWork/ninjaman 2/pinky.gif
+ create mode 100755 PreWork/ninjaman 2/pumpky.gif
+ create mode 100755 PreWork/ninjaman 2/red.gif
+ create mode 100755 PreWork/ninjaman 2/scaredy.png
+ create mode 100755 PreWork/ninjaman 2/sushi.png
+ create mode 100755 PreWork/ninjaman/bluey.gif
+ create mode 100644 PreWork/ninjaman/index.html
+ create mode 100755 PreWork/ninjaman/ninja.gif
+ create mode 100755 PreWork/ninjaman/onigiri.png
+ create mode 100755 PreWork/ninjaman/pinky.gif
+ create mode 100755 PreWork/ninjaman/pumpky.gif
+ create mode 100755 PreWork/ninjaman/red.gif
+ create mode 100755 PreWork/ninjaman/scaredy.png
+ create mode 100755 PreWork/ninjaman/sushi.png
+ create mode 100644 WF Calendar PT - WF Calendar June.pdf
+ create mode 100644 WebFundamentals/.DS_Store
+ create mode 100644 WebFundamentals/css/.DS_Store
+ create mode 100644 WebFundamentals/css/JavaScript Basics/JavaScript Basics.zip
+ create mode 100644 WebFundamentals/css/JavaScript Basics/index.html
+ create mode 100644 WebFundamentals/css/JavaScript Basics/style.css
+ create mode 100644 WebFundamentals/css/displaying-blocks/Archive.zip
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/adventure-cat.png
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/aidorucat.png
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/catandninja.png
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/chellocat.jpg
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/cherry.jpg
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/coder2.jpg
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/codercat.jpg
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/cooler.png
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/daftpunk.gif
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/defunktocat.png
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/dojocat.jpg
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/domo-cat.png
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/github.jpg
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/heisencat.png
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/ironcat.png
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/jean-luc-picat.jpg
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/kantana.jpg
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/linkcat.png
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/mario.png
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/octobiwan.jpg
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/oktobercat.png
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/riddlocat.png
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/stormtroopocat.png
+ create mode 100644 WebFundamentals/css/displaying-blocks/images/visionary.jpg
+ create mode 100644 WebFundamentals/css/displaying-blocks/index.html
+ create mode 100644 WebFundamentals/css/displaying-blocks/style.css
+ create mode 100644 WebFundamentals/css/plotting blocks/index.html
+ create mode 100644 WebFundamentals/css/plotting blocks/plotting blocks.zip
+ create mode 100644 WebFundamentals/css/plotting blocks/style.css
+ create mode 100644 WebFundamentals/css/portfolio/.DS_Store
+ create mode 100644 WebFundamentals/css/portfolio/Archive.zip
+ create mode 100755 WebFundamentals/css/portfolio/images/CSS.png
+ create mode 100755 WebFundamentals/css/portfolio/images/HTML.png
+ create mode 100755 WebFundamentals/css/portfolio/images/JavaScript.png
+ create mode 100755 WebFundamentals/css/portfolio/images/LAMP.png
+ create mode 100755 WebFundamentals/css/portfolio/images/MEAN.png
+ create mode 100755 WebFundamentals/css/portfolio/images/RUBY.png
+ create mode 100755 WebFundamentals/css/portfolio/images/ajax.png
+ create mode 100755 WebFundamentals/css/portfolio/images/angular.png
+ create mode 100755 WebFundamentals/css/portfolio/images/bootstrap.png
+ create mode 100755 WebFundamentals/css/portfolio/images/c-sharp.png
+ create mode 100755 WebFundamentals/css/portfolio/images/codeigniter.png
+ create mode 100755 WebFundamentals/css/portfolio/images/codepen.png
+ create mode 100755 WebFundamentals/css/portfolio/images/d3.png
+ create mode 100755 WebFundamentals/css/portfolio/images/django.png
+ create mode 100755 WebFundamentals/css/portfolio/images/expressjs.png
+ create mode 100755 WebFundamentals/css/portfolio/images/familycontacts.png
+ create mode 100755 WebFundamentals/css/portfolio/images/fiveEleven.png
+ create mode 100755 WebFundamentals/css/portfolio/images/github.png
+ create mode 100755 WebFundamentals/css/portfolio/images/iOS-Swift.png
+ create mode 100755 WebFundamentals/css/portfolio/images/jQuery.png
+ create mode 100755 WebFundamentals/css/portfolio/images/lamode.png
+ create mode 100755 WebFundamentals/css/portfolio/images/linkedin.png
+ create mode 100755 WebFundamentals/css/portfolio/images/materialize.png
+ create mode 100755 WebFundamentals/css/portfolio/images/mongodb.png
+ create mode 100755 WebFundamentals/css/portfolio/images/mysql.png
+ create mode 100755 WebFundamentals/css/portfolio/images/nodejs.png
+ create mode 100755 WebFundamentals/css/portfolio/images/photo_of_me.jpg
+ create mode 100755 WebFundamentals/css/portfolio/images/php.png
+ create mode 100755 WebFundamentals/css/portfolio/images/portfolio_assignment.png
+ create mode 100755 WebFundamentals/css/portfolio/images/python.png
+ create mode 100755 WebFundamentals/css/portfolio/images/socket.png
+ create mode 100755 WebFundamentals/css/portfolio/images/sqlite.png
+ create mode 100755 WebFundamentals/css/portfolio/images/twitter.png
+ create mode 100644 WebFundamentals/css/portfolio/index.html
+ create mode 100644 WebFundamentals/css/portfolio/style.css
+ create mode 100644 WebFundamentals/css/python/Archive.zip
+ create mode 100644 WebFundamentals/css/python/index.html
+ create mode 100644 WebFundamentals/css/python/python.png
+ create mode 100644 WebFundamentals/css/python/style.css
+ create mode 100644 WebFundamentals/exam/.DS_Store
+ create mode 100644 WebFundamentals/exam/modernize.zip
+ create mode 100644 WebFundamentals/exam/modernize/.DS_Store
+ create mode 100644 WebFundamentals/exam/modernize/index.html
+ create mode 100755 WebFundamentals/exam/modernize/read_me.txt
+ create mode 100644 WebFundamentals/exam/modernize/style.css
+ create mode 100755 WebFundamentals/exam/modernize/todd/content_icon1.png
+ create mode 100755 WebFundamentals/exam/modernize/todd/content_icon2.png
+ create mode 100755 WebFundamentals/exam/modernize/todd/content_icon3.png
+ create mode 100755 WebFundamentals/exam/modernize/todd/content_icon4.png
+ create mode 100755 WebFundamentals/exam/modernize/todd/logo.png
+ create mode 100755 WebFundamentals/exam/modernize/todd/main_pic.png
+ create mode 100755 WebFundamentals/exam/modernize/todd/portfolio1.png
+ create mode 100755 WebFundamentals/exam/modernize/todd/portfolio2.png
+ create mode 100755 WebFundamentals/exam/modernize/todd/portfolio3.png
+ create mode 100755 WebFundamentals/exam/modernize/todd/portfolio4.png
+ create mode 100644 WebFundamentals/git/learning-to-commit.txt
+ create mode 100644 WebFundamentals/group-work/Archive.zip
+ create mode 100644 WebFundamentals/group-work/form.html
+ create mode 100644 WebFundamentals/group-work/index1.html
+ create mode 100644 WebFundamentals/group-work/style1.css
+ create mode 100644 WebFundamentals/html/fake-blog.html
+ create mode 100644 WebFundamentals/html/helloworld.html
+ create mode 100644 WebFundamentals/html/indentation-practice 1.html
+ create mode 100644 WebFundamentals/html/indentation-practice-2.html
+ create mode 100644 WebFundamentals/html/indentation-practice.html
+ create mode 100644 WebFundamentals/html/registration-form.html
+ create mode 100644 WebFundamentals/javascript/recursive fill/index.html
+ create mode 100644 WebFundamentals/jquery/test.html
+ create mode 100644 text.txt
+C02XF104JG5J:CodingDojo blacroix$ ls -al
+total 88
+drwxr-xr-x   6 blacroix  staff    192 Jul  2 15:18 .
+drwx------+ 13 blacroix  staff    416 Jul  2 15:11 ..
+drwxr-xr-x  13 blacroix  staff    416 Jul  2 15:18 .git
+drwxr-xr-x   5 blacroix  staff    160 Jun  4 09:25 PreWork
+-rw-r--r--@  1 blacroix  staff  43293 Jun  3 15:14 WF Calendar PT - WF Calendar June.pdf
+drwxr-xr-x  10 blacroix  staff    320 Jul  2 14:31 WebFundamentals
+C02XF104JG5J:CodingDojo blacroix$ git status
+On branch master
+nothing to commit, working tree clean
+C02XF104JG5J:CodingDojo blacroix$ git remote add origin https://github.com/blacroix55/CodingDojo.git
+C02XF104JG5J:CodingDojo blacroix$ git push -u origin master
+Enumerating objects: 142, done.
+Counting objects: 100% (142/142), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (137/137), done.
+Writing objects: 100% (142/142), 5.11 MiB | 331.00 KiB/s, done.
+Total 142 (delta 8), reused 0 (delta 0)
+remote: Resolving deltas: 100% (8/8), done.
+To https://github.com/blacroix55/CodingDojo.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+C02XF104JG5J:CodingDojo blacroix$ pwd
+/Users/blacroix/Desktop/CodingDojo
+
+(Snagged a few files I had from a USB drive, used the gui to drop them into my CodingDojo directory, in a new jQuery directory)
+
+C02XF104JG5J:CodingDojo blacroix$ git add .
+C02XF104JG5J:CodingDojo blacroix$ git commit -m "ading jquery stuffs"
+[master fbef566] ading jquery stuffs
+ 31 files changed, 434 insertions(+)
+ create mode 100644 .DS_Store
+ create mode 100755 WebFundamentals/jquery/Debugging-jQuery/README.md
+ create mode 100755 WebFundamentals/jquery/Debugging-jQuery/debugging_jquery.css
+ create mode 100755 WebFundamentals/jquery/Debugging-jQuery/debugging_jquery.html
+ create mode 100755 WebFundamentals/jquery/Debugging-jQuery/debugging_jquery.zip
+ create mode 100755 WebFundamentals/jquery/Debugging-jQuery/dough.jpg
+ create mode 100755 WebFundamentals/jquery/Debugging-jQuery/logo.PNG
+ create mode 100755 WebFundamentals/jquery/Debugging-jQuery/pizza.jpg
+ create mode 100755 WebFundamentals/jquery/Disappearing Ninja/disappearing-poo-emoji.zip
+ create mode 100755 WebFundamentals/jquery/Disappearing Ninja/index.html
+ create mode 100755 WebFundamentals/jquery/Disappearing Ninja/poo.png
+ create mode 100755 WebFundamentals/jquery/Disappearing Ninja/style.css
+ create mode 100755 WebFundamentals/jquery/Ninja to Cat/img/cat0.png
+ create mode 100755 WebFundamentals/jquery/Ninja to Cat/img/cat1.png
+ create mode 100755 WebFundamentals/jquery/Ninja to Cat/img/cat2.png
+ create mode 100755 WebFundamentals/jquery/Ninja to Cat/img/cat3.png
+ create mode 100755 WebFundamentals/jquery/Ninja to Cat/img/cat4.png
+ create mode 100755 WebFundamentals/jquery/Ninja to Cat/img/ninja0.png
+ create mode 100755 WebFundamentals/jquery/Ninja to Cat/img/ninja1.png
+ create mode 100755 WebFundamentals/jquery/Ninja to Cat/img/ninja2.png
+ create mode 100755 WebFundamentals/jquery/Ninja to Cat/img/ninja3.png
+ create mode 100755 WebFundamentals/jquery/Ninja to Cat/img/ninja4.png
+ create mode 100755 WebFundamentals/jquery/Ninja to Cat/index.html
+ create mode 100755 WebFundamentals/jquery/Ninja to Cat/ninja-to-cat.zip
+ create mode 100755 WebFundamentals/jquery/Ninja to Cat/style.css
+ create mode 100755 WebFundamentals/jquery/jQuery Functions/cat.jpg
+ create mode 100755 WebFundamentals/jquery/jQuery Functions/index.html
+ create mode 100755 WebFundamentals/jquery/jQuery Functions/jquery-assignment1.zip
+ create mode 100755 WebFundamentals/jquery/jQuery Functions/poo.png
+ create mode 100755 WebFundamentals/jquery/jQuery Functions/style.css
+C02XF104JG5J:CodingDojo blacroix$ git push
+Enumerating objects: 43, done.
+Counting objects: 100% (43/43), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (39/39), done.
+Writing objects: 100% (39/39), 1.15 MiB | 971.00 KiB/s, done.
+Total 39 (delta 10), reused 0 (delta 0)
+remote: Resolving deltas: 100% (10/10), completed with 3 local objects.
+To https://github.com/blacroix55/CodingDojo.git
+   8521984..fbef566  master -> master
+C02XF104JG5J:CodingDojo blacroix$ 
