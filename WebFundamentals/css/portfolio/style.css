@@ -1,0 +1,103 @@
+* {
+    /*border: 1pt dashed pink;*/
+}
+
+a {
+    color: black;
+}
+h1 {
+    margin: 0;
+    font-family: cursive;
+}
+h2 {
+    margin: 0;
+}
+#container {
+    width: 960px;
+    background-color: indigo;
+}
+.header {
+    padding: 15px;
+    background-color: lightgray;
+}
+    .header h1 {
+        display: inline-block;
+        width: 430px;
+        padding-left: 20px;
+    }
+    .header h2 {
+        display: inline-block;
+        text-align: right;
+        width: 440px;
+        padding-right: 10px;
+    }
+.main {
+    margin: 20px;
+}
+        .main-top-image {
+            display: inline-block;
+            background-color:lightgrey;
+            width: 350px;
+            height: 250px;
+            line-height: 250px;
+            text-align: center;
+            margin-left: 10px;
+        }
+            .main-top-image img {
+                vertical-align: middle;
+            }            
+        .main-top-content {
+            display: inline-block;
+            background-color: lightgray;
+            width: 526px;
+            height: 250px;
+            vertical-align: top;
+            margin-left: 20px;
+        }
+            .main-top-content-about {
+                line-height: 40px;
+                background-image: linear-gradient(darkgray, gray, darkgray);
+                text-indent: 5px;
+                color: white;
+                vertical-align: middle;
+            }
+            .main-top-content-content {
+                min-height: 35px;
+                margin: 5pt;
+            }
+    .main-sub {
+        min-height: 550px;
+        width: 284px;
+        display: inline-block;
+        background-color: lightgray;
+        margin: 10px;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        vertical-align: top;
+    }
+        .main-sub-title {
+            line-height: 40px;
+            background-image: linear-gradient(darkgray, gray, darkgray);
+            color: white;
+            vertical-align: middle;
+            text-indent: 5px;
+        }
+        .main-sub-text  img {
+            height: 40px;
+        }
+        .main-sub-text-fixed {
+            height: 200px;
+            padding-top: 5px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .main-sub-image img {
+            width: 284px;
+        }
+        .main-sub-text input {
+            margin: 0 auto;
+            display: block;
+            background-color: green;
+            color: white;
+            font-size: 130%;
+        }

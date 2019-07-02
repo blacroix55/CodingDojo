@@ -1,0 +1,60 @@
+<!DOCTYPE html >
+<html>
+    <head>
+        <title>Brian's registration form</title>
+        <meta charset="utf-8">
+        <meta name="registration" content="This is a little registration form for practice.  
+            I highly doubt Google or anyone would want to index this.">
+    </head>
+    <form>
+        <h2>My Registration Form</h2>
+        <p>
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name">
+        </p>
+        <p>
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="first_name">
+        </p>
+        <p>
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email">
+        </p>    
+        <p>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+        </p>       
+        <p>
+            <label for="password_confirmation">PW Confirm:</label>
+            <input type="password" id="password_confirmation" name="password_confirmation">
+        </p>
+        
+        <p>
+            <label for="birthday">Birthday:</label>
+            <input type="date" id="birthday" name="birthday">
+        </p>
+        <p>
+            <label for="male">Male</label>
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="female">Female</label>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="decline">Prefer not to say</label>
+            <input type="radio" id="decline" name="gender" value="decline">
+        </p> 
+        <p>
+            <label for="description">A short description about yourself:<br></label>
+            <textarea id="description" name="description" rows="4" cols="40"></textarea>
+        </p>
+        <p>
+            <label for="favorite_language">Favorite Language:</label>
+            <select id="favorite_language" name="favorite_language">
+                <option value="javascript">JavaScript</option>
+                <option value="html">HTML</option>
+                <option value="python">Python</option>
+            </select> 
+        </p>
+        <p>
+            <input type="submit" value="Submit">
+        </p>
+    </form>
+</html>

@@ -1,0 +1,85 @@
+C02XF104JG5J:Desktop blacroix$ cd ~
+C02XF104JG5J:~ blacroix$ ls
+Applications		Documents		Library			Music			Public			db-002.sg3.sysctl.txt
+Desktop			Downloads		Movies			Pictures		db-002.ne1.sysctl.txt	projects
+C02XF104JG5J:~ blacroix$ mkdir test
+C02XF104JG5J:~ blacroix$ cd test
+C02XF104JG5J:test blacroix$ touch index.html
+C02XF104JG5J:test blacroix$ touch styles.css
+C02XF104JG5J:test blacroix$ git init
+Initialized empty Git repository in /Users/blacroix/test/.git/
+C02XF104JG5J:test blacroix$ git add .
+C02XF104JG5J:test blacroix$ git commit -m "initial commit, assignment 2 of git repos"
+[master (root-commit) 3213471] initial commit, assignment 2 of git repos
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 index.html
+ create mode 100644 styles.css
+C02XF104JG5J:test blacroix$ vi index.html 
+C02XF104JG5J:test blacroix$ git add index.html 
+C02XF104JG5J:test blacroix$ git commit -m "update html" index.html 
+[master 6cb68a2] update html
+ 1 file changed, 9 insertions(+)
+C02XF104JG5J:test blacroix$ vi styles.css 
+C02XF104JG5J:test blacroix$ git add styles.css 
+C02XF104JG5J:test blacroix$ git commit -m "update css" styles.css 
+[master 7bdc7c1] update css
+ 1 file changed, 9 insertions(+)
+C02XF104JG5J:test blacroix$ git log
+commit 7bdc7c171e8325fde2a9e89326f4cd2d5045c115 (HEAD -> master)
+Author: Brian LaCroix <blacroix@verizonmedia.com>
+Date:   Tue Jul 2 14:26:44 2019 -0500
+
+    update css
+
+commit 6cb68a263b5459d1255f04a6629dead5e7b724a8
+Author: Brian LaCroix <blacroix@verizonmedia.com>
+Date:   Tue Jul 2 14:26:17 2019 -0500
+
+    update html
+
+commit 3213471d9ab2377a76ec1c8df95c5895306c55d6
+Author: Brian LaCroix <blacroix@verizonmedia.com>
+Date:   Tue Jul 2 14:25:21 2019 -0500
+
+    initial commit, assignment 2 of git repos
+C02XF104JG5J:test blacroix$ git revert HEAD
+[master 834e828] Revert "update css"
+ 1 file changed, 9 deletions(-)
+C02XF104JG5J:test blacroix$ vi styles.css 
+C02XF104JG5J:test blacroix$ git add styles.css 
+C02XF104JG5J:test blacroix$ git commit -m "update css again, after revert" styles.css 
+[master 5eb4eab] update css again, after revert
+ 1 file changed, 1 insertion(+)
+C02XF104JG5J:test blacroix$ git log
+commit 5eb4eab1058cce2018dc513753c0ef08a96c84ac (HEAD -> master)
+Author: Brian LaCroix <blacroix@verizonmedia.com>
+Date:   Tue Jul 2 14:29:24 2019 -0500
+
+    update css again, after revert
+
+commit 834e8280009fe645977820875fa6c24d29201279
+Author: Brian LaCroix <blacroix@verizonmedia.com>
+Date:   Tue Jul 2 14:28:19 2019 -0500
+
+    Revert "update css"
+    
+    This reverts commit 7bdc7c171e8325fde2a9e89326f4cd2d5045c115.
+
+commit 7bdc7c171e8325fde2a9e89326f4cd2d5045c115
+Author: Brian LaCroix <blacroix@verizonmedia.com>
+Date:   Tue Jul 2 14:26:44 2019 -0500
+
+    update css
+
+commit 6cb68a263b5459d1255f04a6629dead5e7b724a8
+Author: Brian LaCroix <blacroix@verizonmedia.com>
+Date:   Tue Jul 2 14:26:17 2019 -0500
+
+    update html
+
+commit 3213471d9ab2377a76ec1c8df95c5895306c55d6
+Author: Brian LaCroix <blacroix@verizonmedia.com>
+Date:   Tue Jul 2 14:25:21 2019 -0500
+
+    initial commit, assignment 2 of git repos
+C02XF104JG5J:test blacroix$ 

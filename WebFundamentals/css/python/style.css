@@ -1,0 +1,160 @@
+/* Global settings */
+}
+ul {
+    padding-inline-start: 0px;
+}
+li {
+    margin-bottom: 3px;
+}
+
+
+#container {
+    width: 970px;
+}
+.top-blue{
+    background-color: rgb(48, 60, 139);
+    min-height: 400px;
+}
+    .image {
+        display: inline-block;
+    }
+    .top-container {
+        display: inline-block;
+        width: 500px;
+        text-align: right;
+        vertical-align: top;
+        color: white;
+        padding: 10pt;
+    }
+        #text-sizer{
+            padding-bottom: 5px;
+        }
+        #searchbox {
+            background-color: darkslategrey;
+            margin-left: 180px;
+            padding: 10px 30px;
+            border-radius: 10px;
+            box-shadow: 2px 2px black;
+
+        }
+            .top-container input {
+                font-size: 14pt;
+                text-align: center;
+            }
+            .top-container button {
+                font-size: 14pt;
+                padding: 2px;
+                padding-left: 5px;
+                padding-right: 5px;
+                margin-left: 5px;
+                border-radius: 5px;
+                background-color: blue;
+                color: white;
+            }
+        #navbar {
+            margin-left: 25px;
+            margin-right: 25px;
+        }
+            #navbar ul {
+                display: inline-block;
+                background-color: cornflowerblue;
+                margin: 10px;
+                padding: 10px;
+                border-radius: 10px;
+                box-shadow: 2px 2px;
+            }
+            #navbar ul li{
+                display: inline;
+                color: white;
+                padding: 0px 30px;
+                font-size: 16pt;
+            }
+        #details {
+            color: white;
+            text-align: center;
+            margin: 0px;
+            padding: 0px;
+        }
+            #details-left {
+                display: inline-block;
+                width: 250px;
+                text-align: center; 
+                font-size: 14pt;
+                vertical-align: top;
+            }
+                #details-left a {
+                    color: white;
+                }
+                #details-left ul li {
+                    list-style: none;
+                    color: yellow;
+                    margin-bottom: 3px;
+                }
+                #details-left li:before {
+                    content: "»";
+                }
+            #details-right {
+                display: inline-block;
+                text-align: center; 
+                width: 660px;
+                padding-right: 50px;
+            }
+                #details-right ul {
+                    color: yellow;
+                    font-size: 16pt;
+                    font-style: italic;
+                    list-style: none;
+                    margin: 5px;
+                    padding: 5px;
+                }
+
+.middle-white{
+    background-color: white;
+    min-height: 180px;
+}
+    .middle-section {
+        display: inline-block;
+        width: 370px;
+        vertical-align: top;
+        text-align: center;
+        margin-left: 75px;
+    }
+        .middle-section .blue-bar {
+            height: 3px;
+            background-color: cornflowerblue;
+            margin-top: 6px;
+        }
+        .middle-section .middle-header {
+            font-style: bold;
+            font-size: 15pt;
+            margin-bottom: 7px;
+        }
+        .middle-section ul{
+            padding-inline-start: 60px;
+        }
+        .middle-section li {
+            list-style-type: square;
+            margin-right: 60px;
+            color: black;
+        }       
+        .middle-section span{
+            color: cornflowerblue;
+        } 
+
+.bottom-blue {
+    background-image: linear-gradient(rgb(48, 60, 139),rgb(49,65,240));
+    color: cornflowerblue;
+    text-align: center;
+    font-size: 8pt;
+    padding: 0px;
+    min-height: 100px;
+}
+    
+    .bottom-blue ul li {
+        display: inline-block;
+        margin-top: 50px;
+        font-size: 12pt;
+        padding: 0px 30px;
+    }
+  a {
+    color: yellow;
