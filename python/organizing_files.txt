@@ -1,0 +1,17 @@
+C02XF104JG5J:python blacroix$ ls -l
+total 0
+drwxr-xr-x  2 blacroix  staff  64 Jul  5 11:01 OOP
+drwxr-xr-x  2 blacroix  staff  64 Jul  5 11:02 django
+drwxr-xr-x  2 blacroix  staff  64 Jul  5 11:02 django_full_stack
+drwxr-xr-x  2 blacroix  staff  64 Jul  5 11:02 django_intro
+drwxr-xr-x  2 blacroix  staff  64 Jul  5 11:02 django_orm
+drwxr-xr-x  2 blacroix  staff  64 Jul  5 11:01 flask
+drwxr-xr-x  2 blacroix  staff  64 Jul  5 11:02 flask_fundamentals
+drwxr-xr-x  2 blacroix  staff  64 Jul  5 11:02 flask_mysql
+drwxr-xr-x  2 blacroix  staff  64 Jul  5 11:01 fundamentals
+drwxr-xr-x  2 blacroix  staff  64 Jul  5 11:01 my_environments
+drwxr-xr-x  2 blacroix  staff  64 Jul  5 11:01 python
+drwxr-xr-x  2 blacroix  staff  64 Jul  5 11:01 pythong_stack
+C02XF104JG5J:python blacroix$ pwd
+/Users/blacroix/Desktop/CodingDojo/python
+C02XF104JG5J:python blacroix$ 
