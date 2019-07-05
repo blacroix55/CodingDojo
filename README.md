@@ -1,4 +1,2 @@
-# CodingDojo
-
-This repo contains the files I used when taking the online, part time Python class with Coding Dojo.  
-This class started in June, 2019.
+This is the working directory for my Coding Dojo, part-time, online coding bootcamp.  Hopefully my code sucks less
+and less as I get better.  :)
