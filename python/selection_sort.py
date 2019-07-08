@@ -9,5 +9,7 @@ for workingPosition in range(0,len(arr)):
             lowestPosition=comparisonValue
     if lowestPosition!=workingPosition:
         arr[workingPosition],arr[lowestPosition]=arr[lowestPosition],arr[workingPosition]
+    print ("Pass number",workingPosition)
+    print ("current array = ",arr)
 
 print ("end =",arr)
