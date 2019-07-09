@@ -1,7 +1,7 @@
 class Underscore:
     def map(self, iterable, callback):
         for i in range(0,len(iterable)):
-            iterable[i]=callback(i)
+            iterable[i]=callback(iterable[i])
         return iterable
 
     def find(self, iterable, callback):
