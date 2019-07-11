@@ -1,0 +1,9 @@
+table {
+    border-spacing: 0px;
+}
+table tr th {
+    border: 1px solid lightgray;
+}
+table tr td {
+    border: 1px solid lightgray;
+}
