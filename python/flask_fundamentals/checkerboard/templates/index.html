@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Checkerboard Assignment</title>
+    <style>
+        tr td {
+            width: 50px;
+            height: 50px;
+        }
+        .color0 {
+            background-color: {{color0}};
+        }
+        .color1 {
+            background-color: {{color1}};
+        }
+    </style>
+    </head>
+    <body>
+        <table>
+            {% for a in range(y): %}
+            <tr>
+                {% for b in range(x): %}
+                <td class='color{{(a+b)%2}}'></td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
