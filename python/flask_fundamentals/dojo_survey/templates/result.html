@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dojo Survey</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+<body>
+    <div id="container">
+        <form action='/return' method='post'>
+            <p>
+                <h4>Submitted Info:</h4>
+                <span>Name:</span><span>{{results.name}}</span> 
+                <span>Dojo Location</span><span>{{results.location}}</span>
+                <span>Favorite Language</span><span>{{results.language}}</span>
+                <span>Comment:</span><span>{{results.comment}}</span>
+            </p>
+            <p> <input id="submit" type='submit' value='Go Back'</p>
+        </form>
+    </div>
+</body>
+</html>
