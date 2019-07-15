@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=500px, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Counter</title>
+</head>
+<body>
+    <div id="container">
+        <h1>PAGE COUNTER: {{session.root_page_counter}}</h1>
+        <p>
+            <form action='/clicky-clicky' method='post'>
+                <button class="button pink" name="add-two" type="submit">Add two visits!</button>
+                <button class="button green" name="reset" type="submit">Reset</button>
+            </form>
+        </p>
+    </div>
+</body>
+</html>
