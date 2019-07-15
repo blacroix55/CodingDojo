@@ -51,11 +51,11 @@ print (values_greater_than_second([3]))
 # to the given size, and whose values are all the given value.
 # Example: length_and_value(4,7) should return [7,7,7,7]
 # Example: length_and_value(6,2) should return [2,2,2,2,2,2]
-def length_and_value(l,v):
-    s=[]
-    while len(s)<l:
-        s=s+[v]
-    return s
+def length_and_value(size,value):
+    new_list=[]
+    while len(new_list)<size:
+        new_list.append(value)
+    return new_list
 
 print( length_and_value(4,7) )
 print( length_and_value(6,2) )
