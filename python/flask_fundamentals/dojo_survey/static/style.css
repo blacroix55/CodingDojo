@@ -24,6 +24,7 @@ input, textarea, select {
     border: 2px solid black;
     padding: 3px;
 }
+
 span {
     width: 45%;
     display: inline-block;
