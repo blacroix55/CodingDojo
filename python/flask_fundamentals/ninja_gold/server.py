@@ -4,6 +4,13 @@ import datetime
 app = Flask(__name__) 
 app.secret_key = 'keep it secret, keep it safe' # set a secret key for security purposes
 
+types = {
+    'farm': { 'min': 10, 'max': 20},
+    'cave': { 'min': 5, 'max': 10},
+    'house': { 'min': 2, 'max': 5},
+    'casino': { 'min': -50, 'max': 50}
+} 
+
 @app.route('/')
 def index():
     if 'gold' not in session:
@@ -25,21 +32,16 @@ def process_money():
         return redirect('/')
     # deactivate all "find gold" buttons once user has made 15 moves.  NO CHEATING!
     if session['moves']<=15:
-        if request.form['type']=="farm":
-            change=random.randint(10,21)
-        elif request.form['type']=="cave":
-            change=random.randint(5,11)
-        elif request.form['type']=="house":
-            change=random.randint(2,51)
-        elif request.form['type']=="casino":
-            change=random.randint(-50,51)
+        print ("*"*40)
+        min=types[request.form['type']]['min']
+        max=types[request.form['type']]['max']
+        change=random.randint(min,max)
         session['gold']+=change
         now=datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
         if change < 0:
             log = "<div class='red small'>Entered a casino and lost "+str(change)+" gold... Ouch. ("+str(now)+")</div>"
         else:
             log = "<div class='green small'>Earned "+str(change)+" from the "+request.form['type']+"! ("+str(now)+")</div>"
-        print (type(log),log)
         session['log']=log+session['log']
     return redirect('/')
 
