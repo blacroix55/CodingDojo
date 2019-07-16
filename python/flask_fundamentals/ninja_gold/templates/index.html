@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=600, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <title>Ninja Gold</title>
+</head>
+<body>
+    <div id=container>
+        <p>Your gold: <span>{{session.gold}}</span></p>
+        <div class="box">
+                <h2>Farm</h2>
+                <p>(earns 10-20 gold)</p>
+                <form action='/process_money' method='post'>
+                    <input type="hidden" name="type" value="farm">
+                    <button type="submit">Find Gold!</button>
+                </form>
+            </div>
+            <div class="box">
+                <h2>Cave</h2>
+                <p>(earns 5-10 gold)</p>
+                <form action='/process_money' method='post'>
+                    <input type="hidden" name="type" value="cave">
+                    <button type="submit">Find Gold!</button>
+                </form>
+            </div>
+            <div class="box">
+                <h2>House</h2>
+                <p>(earns 2-50 gold)</p>
+                <form action='/process_money' method='post'>
+                    <input type="hidden" name="type" value="house">
+                    <button type="submit">Find Gold!</button>
+                </form>
+            </div>
+            <div class="box">
+                <h2>Casino</h2>
+                <p>(earns/takes 0-50 gold)</p>
+                <form action='/process_money' method='post'>
+                    <input type="hidden" name="type" value="casino">
+                    <button type="submit">Find Gold!</button>
+                </form>
+            </div>
+            <p>Activites:</p>
+            <div id='activities'>
+                {{session.log|safe}}
+            </div>
+            {% if session.moves >= 15 %}
+            {% if session.gold >= 500 %}
+            <h2 class='green'> YOU WON!</h2>
+            {% else %}
+            <h2 class='red'> YOU LOST! </h2>
+            {% endif %}
+            <p>
+                <form action='/process_money' method='post'>
+                    <input type="hidden" name="type" value="reset">
+                    <button type="submit">Reset Game</button>
+                </form>
+            </p>
+            {% endif %}
+    </div>
+</body>
+</html>

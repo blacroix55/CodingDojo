@@ -1,0 +1,44 @@
+#container {
+    width: 830px;
+    background-color: white;
+    padding: 30px;
+    margin: 0px auto
+}
+
+.box {
+    min-height 150px;
+    width: 180px;
+    display: inline-block;
+    border: 2px solid black;
+    text-align: center;
+    margin: 0px 10px;
+    padding: 0px 0px 30px 0px;
+}
+
+#activities {
+    min-height: 150px;
+    border: 2px solid black;
+    margin: 0px 10px;
+    padding: 8px;
+    max-height: 150px;
+    overflow: scroll;
+}
+button {
+    box-shadow: 3px 3px black;
+    border: 2px solid black;
+}
+span {
+    border: 2px solid black;
+    padding: 5px;
+}
+.small {
+    border: 0px;
+    padding: 0px;
+    font-size: 10pt;
+}
+.red {
+    color: red;
+}
+.green {
+    color: green;
+}
