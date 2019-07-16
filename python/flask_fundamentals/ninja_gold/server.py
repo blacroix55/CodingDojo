@@ -34,7 +34,7 @@ def process_money():
     if session['moves']<=15:
         print ("*"*40)
         min=types[request.form['type']]['min']
-        max=types[request.form['type']]['max']
+        max=types[request.form['type']]['max']+1
         change=random.randint(min,max)
         session['gold']+=change
         now=datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
