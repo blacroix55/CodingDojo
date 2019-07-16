@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=600px, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Welcome to the Great Number Game!</h1>
+    <p>I am thinking of a number between 1 and 100</p>
+    <p>Take a guess!</p>
+    {% if  ( session.response == "Too high!" ) or (session.response == "Too low!")    %}
+    <div id="red_box">
+        <p>{{session.response}}</p>
+    </div>
+    {% endif %}
+    {% if  ( session.response != "Correct!" ) %}
+    <form action='/submit_guess' method='post'>
+        <input type='text' name='guess'>
+        <button type='submit' value='Submit'>Submit</button>
+    </form>
+    {% endif %}
+    {% if ( session.response == "Correct!" ) %}
+    <div id="green_box">
+        <p>{{session.number}} was the number!</p>
+    </div>
+    <form action='/reset' method='post'>
+        <button type='submit' value='play_again'>Play again!</button>
+    </form>
+    {% endif %}
+    <p>Num of guesses: {{session.guess_num}}</p>
+</body>
+</html>
