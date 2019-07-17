@@ -7,7 +7,7 @@ app.secret_key = 'keep it secret, keep it safe' # set a secret key for security 
 types = {
     'farm': { 'min': 10, 'max': 20},
     'cave': { 'min': 5, 'max': 10},
-    'house': { 'min': 2, 'max': 5},
+    'house': { 'min': 2, 'max': 50},
     'casino': { 'min': -50, 'max': 50}
 } 
 
@@ -34,7 +34,7 @@ def process_money():
     if session['moves']<=15:
         print ("*"*40)
         min=types[request.form['type']]['min']
-        max=types[request.form['type']]['max']+1
+        max=types[request.form['type']]['max']
         change=random.randint(min,max)
         session['gold']+=change
         now=datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
