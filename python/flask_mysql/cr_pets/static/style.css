@@ -1,0 +1,20 @@
+* {
+    margin: 0px auto;
+}
+h1, p {
+    text-align: center;
+}
+#container {
+    width: 500px;
+    margin: 0px auto;
+}
+table {
+    border: 1px solid black;
+}
+th {
+    background: lightgray;
+}
+th,td {
+    padding: 0px 15px;
+    border: 1px solid black;
+}
