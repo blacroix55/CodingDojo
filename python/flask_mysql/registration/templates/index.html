@@ -10,17 +10,39 @@
     <h1>Registration</h1>
     <form action="/create" method="POST">
         <p>First Name: <input type="text" name="first_name"></p>
+        {%- with errors = get_flashed_messages(category_filter=['first_name']) %}
+            {% if errors %} 
+                {% for error in errors %}
+                    <strong>{{error}} </strong>
+                {% endfor %}
+            {% endif %} 
+        {% endwith -%}
         <p>Last Name: <input type="text" name="last_name"></p>
+        {%- with errors = get_flashed_messages(category_filter=['last_name']) %}
+            {% if errors %} 
+                {% for error in errors %}
+                    <strong>{{error}} </strong>
+                {% endfor %}
+            {% endif %} 
+        {% endwith -%}
+        <p>Email: <input type="text" name="email"></p>
+        {%- with errors = get_flashed_messages(category_filter=['email']) %}
+            {% if errors %} 
+                {% for error in errors %}
+                    <strong>{{error}} </strong>
+                {% endfor %}
+            {% endif %} 
+        {% endwith -%}
         <p>Password: <input type="text" name="password"></p>
+        {%- with errors = get_flashed_messages(category_filter=['password']) %}
+            {% if errors %} 
+                {% for error in errors %}
+                    <strong>{{error}} </strong>
+                {% endfor %}
+            {% endif %} 
+        {% endwith -%}
         <p>Confirm Password: <input type="text" name="password_conf"></p>
         <p><input type="submit" value="Register"></p>
     </form>
-    {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
-        {% if messages %}                            <!-- check if there are any messages -->
-            {% for message in messages %}            <!-- loop through the messages -->
-                <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
 </body>
 </html>
