@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <title>Show All Users</title>
+</head>
+<body>
+    <div id="container">
+        <h1>All users</h1>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Created On</th>
+                <th>Actions</th>
+            </tr>
+            {% for user in users %}
+            <tr>
+                <td><a href='/users/{{user["id"]}}'>{{user['id']}}</a></td>
+                <td>{{user['first_name']}} {{user['last_name']}}</td>
+                <td>{{user['email']}}</td>
+                <td>{{user['created_on']}}</td>
+                <td><a href='/users/{{user["id"]}}'>Show</a> | 
+                    <a href='/users/{{user["id"]}}/edit'>Edit</a> | 
+                    <a href='/users/{{user["id"]}}/destroy'>Delete</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <p><a href='/users/new'>Add a New User</a></p>
+    </div>
+</body>

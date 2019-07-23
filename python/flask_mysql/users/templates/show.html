@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <title>User Details</title>
+</head>
+<body>
+    <div id="container">
+        <span><h1>User {{user[0]['id']}}</h1></span>
+        <span class="right"><a href='/users'>Home</a></span>
+        <p>Full Name: {{user[0]['first_name']}} {{user[0]['last_name']}}</p>
+        <p>Email: {{user[0]['email']}}</p>
+        <p>Created On: {{user[0]['created_on']}}</p>
+        <p>Last Updated On: {{user[0]['modified_on']}}</p>
+        <p><a href='/users/{{user[0]["id"]}}/edit'>Edit</a> | 
+        <a href='/users/{{user[0]["id"]}}/destroy'>Delete</a></td></p>
+    </div>
+</body>

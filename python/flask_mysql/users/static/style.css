@@ -1,0 +1,25 @@
+/* * {
+    margin: 0px auto;
+} */
+
+#container {
+    width: 750px;
+    margin: 0px auto;
+}
+table {
+    border: 1px solid black;
+}
+th {
+    background: lightgray;
+}
+th,td {
+    padding: 0px 15px;
+    border: 1px solid black;
+}
+span {
+    display: inline-block;
+    width: 48%;
+}
+.right {
+    text-align: right;
+}

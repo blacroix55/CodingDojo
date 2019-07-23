@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <title>Edit Existing User</title>
+</head>
+<body>
+    <div id="container">
+        <span><h1>Edit Existing User</h1></span>
+        <span class="right"><a href='/users'>Home</a></span>
+        <form action='/users/{{user[0]["id"]}}/update' method='POST'>
+            <p>First Name</p>
+            <p><input type='text' name='first_name' value='{{user[0]["first_name"]}}'></p>
+            <p>Last Name</p>
+            <p><input type='text' name='last_name' value='{{user[0]["last_name"]}}'></p>
+            <p>Email</p>
+            <p><input type='text' name='email' value='{{user[0]["email"]}}'></p>
+            <p><input type='submit' value='Update'</p>
+            <p><a href='/users/{{user[0]["id"]}}'>Show User</a> </p>
+        </form>
+    </div>
+</body>
