@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>First Flask MySQL</title>
+</head>
+<body>
+    <h1>All My Friends</h1>
+    <table>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Occupation Name</th>
+        </tr>
+        {% for one_friend in all_friends %}
+        <tr>
+            <td>{{one_friend["first_name"]}}</td>
+            <td>{{one_friend["last_name"]}}</td>
+            <td>{{one_friend["occupation"]}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h1>Add a Friend</h1>
+    <form action="/create_friend" method="POST">
+        <td>First Name: <input type="text" name="fname"></ltd>
+        <td>Last Name: <input type="text" name="lname"></td>
+        <td>Occupation: <input type="text" name="occ"></td>
+        <input type="submit" value="Add Friend">
+    </form>
+    {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+        {% if messages %}                            <!-- check if there are any messages -->
+            {% for message in messages %}            <!-- loop through the messages -->
+                <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+</body>
+</html>
