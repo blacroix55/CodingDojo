@@ -77,6 +77,12 @@ def create():
         }
         user_id = mysql.query_db(query,data)
         flash("Successfullly added!")
+        session['auth'] = True
+        session['first_name']=request.form['first_name']
+        session['last_name']=request.form['last_name']
+        session['email']=request.form['email']
+        print ("session data =",session)
+        return redirect('/home')
     else:
         print ("BAD DATA, DID NOT COMMIT")
     return redirect("/")
