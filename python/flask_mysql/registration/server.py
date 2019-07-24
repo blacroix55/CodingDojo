@@ -41,7 +41,7 @@ def create():
     	flash("Password should be at least 5 characters", "password")
     if request.form['password']!=request.form['password_conf']:
         is_valid = False
-        flash("Password confirmation does not match!", "password")
+        flash("Passwords do not match!", "password_conf")
 
     if len(request.form['email']) < 1:
         is_valid=False
