@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Successful Auth</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row border">
+            <div class="col-6">
+                <h5>Dojo Tweets</h1>
+            </div>
+            <div class="col-4">
+                <h5>Welcome, {{session.first_name}}</h1>
+            </div>
+            <div class="col-2">
+                <a href='/logout'>logout</a>
+            </div>
+        </div> 
+        <form class="row align-items-end form-group" action="/tweets/{{tweet.0.id}}/update" method="POST">
+            <div class="col-6">
+                <h4 class="m-3">Edit a Tweet:</h4>
+                <textarea class="m-3 form-control" name="message" rows=5>{{tweet.0.message}}</textarea>
+            </div>
+            <div class="col-6">
+                    <input class="m-3 btn btn-primary" type="submit" name="update" value="Update">
+                    <input class="m-3 btn btn-primary" type="submit" name="cancel" value="Cancel">
+            </div>
+        </form>
+    </div>
+</body>

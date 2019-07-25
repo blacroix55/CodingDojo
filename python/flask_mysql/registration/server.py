@@ -244,6 +244,47 @@ def like_tweet(tweet_id):
 
     return redirect('/user/'+str(session['id']))
 
+#   EDIT TWEETS 
+@app.route("/tweets/<tweet_id>/edit", methods=['POST'])
+def edit_tweet(tweet_id):
+    print ('*'*20)
+    print ('Got request to edit a tweet')
+    if (session['auth']==False):
+        return redirect('/')
+    
+    # SNAG TWEET TO POPULATE FORM FOR EDITING #
+    mysql = connectToMySQL('registration')
+    query = 'SELECT id, message, creator_id FROM tweets WHERE id=%(tweet_id)s'
+    data = {
+    'tweet_id': tweet_id
+    }
+    tweet = mysql.query_db(query,data)
+    print ("tweet=",tweet)
+    print ("session=",session)
+    return render_template('edit.html',session=session,tweet=tweet)
+
+#   UPDATE TWEETS 
+@app.route("/tweets/<tweet_id>/update", methods=["POST"])
+def update_tweet(tweet_id):
+    print ('*'*20)
+    print ('Got request to update a tweet')
+    print ("form data=",request.form)
+
+    if 'cancel' in request.form:
+        print ('user clicked cancel, redirecting to user home')
+        
+    elif 'update' in request.form:
+        print ('user clicked update, updating tweet in database')
+        mysql = connectToMySQL('registration')
+        query = 'UPDATE tweets SET message="%(message)s" where id=%(tweet_id)s'
+        data = {
+            'message': request.form['message'],
+            'tweet_id': tweet_id
+        }
+        update = mysql.query_db(query,data)
+        print ("Update response =",update)
+    
+    return redirect('/user/'+str(session['id']))
 
 #   DELETE TWEETS 
 @app.route("/tweets/<id>/delete", methods=["POST"])

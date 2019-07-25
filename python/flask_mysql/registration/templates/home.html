@@ -32,7 +32,7 @@
                     {% endif %}
                 {% endwith %}
             </div>
-            <div class="col-2">
+            <div class="col-6">
                     <input class="m-3 btn btn-primary" type="submit" value="Submit">
             </div>
         </form>
@@ -50,11 +50,13 @@
                     </form>
                     <p class="col"> </p>
                     {% if session['id'] == tweet.creator_id %}
+                    <form action="/tweets/{{tweet.id}}/edit" method="POST">
+                        <input class="col btn align-items-middle btn-primary" type="submit" name="edit" value="Edit">
+                    </form>
+                    <p class="col"> </p>
                     <form action="/tweets/{{tweet.id}}/delete" method="POST">
                         <input class="col btn align-items-end btn-primary" type="submit" name="delete" value="Delete">
                     </form>
-                    {% else %}
-                    THIS IS THE ELSE STATEMENT
                     {% endif %}
                 </div>
                 {% endfor %}
