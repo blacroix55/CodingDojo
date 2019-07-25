@@ -14,7 +14,7 @@ bcrypt = Bcrypt(app)
 def index():
     return render_template("index.html")
 
-@app.route("/create", methods=["POST"])
+@app.route("/user/create", methods=["POST"])
 def create():
     print ('Got registration request')
     print (request.form)
@@ -76,18 +76,20 @@ def create():
             'eml': request.form['email']
         }
         user_id = mysql.query_db(query,data)
+        print('user_id =',user_id)
         flash("Successfullly added!")
+        session['id']=user_id
         session['auth'] = True
         session['first_name']=request.form['first_name']
         session['last_name']=request.form['last_name']
         session['email']=request.form['email']
         print ("session data =",session)
-        return redirect('/home')
+        return redirect('/user/'+str(user_id))
     else:
         print ("BAD DATA, DID NOT COMMIT")
     return redirect("/")
 
-@app.route("/login", methods=["POST"])
+@app.route("/user/login", methods=["POST"])
 def login():
     # Set up session data for auth = False
     if 'auth' not in session:
@@ -113,7 +115,7 @@ def login():
     
     if is_valid:
         mysql = connectToMySQL('registration')
-        query = 'SELECT first_name, last_name, password FROM users WHERE email = %(email)s'
+        query = 'SELECT id,first_name, last_name, password FROM users WHERE email = %(email)s'
         data = {
             'email': request.form['email']
         }
@@ -128,12 +130,13 @@ def login():
         if result:
             # passwords match, set up session data accordingly, then rediret to /home
             print ('password and stored hash match, logging user in')
+            session['id']=user_id[0]['id']
             session['auth'] = True
             session['first_name']=user_id[0]['first_name']
             session['last_name']=user_id[0]['last_name']
             session['email']=request.form['email']
             print ("session data =",session)
-            return redirect('/home')
+            return redirect('/user/'+str(session['id']))
         else:
             print ('password did not match')
             flash("Password is incorrect", "login-password")
@@ -141,11 +144,11 @@ def login():
     # If user/pwd is wrong, punt back to /
     return redirect('/')
 
-@app.route("/home")
-def home(): 
+@app.route("/user/<int:id>")
+def home(id): 
     print ('entering /home (post auth)')
     print (session)
-    if session['auth']==True:
+    if (session['auth']==True)  and (id == session['id']):
         print ('session auth is true, going to render home.html next')
         return render_template('home.html',session=session)
     else:
