@@ -5,17 +5,22 @@ from mysqlconnection import connectToMySQL      # import the function that will 
 
 app = Flask(__name__)
 
-# App-wide items to be used throughout the program:
+#   App-wide items to be used throughout the program:
 app.secret_key = 'shh, this is a secret.  no one should know.' # set a secret key for security purposes
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
 bcrypt = Bcrypt(app)
 
+#   MAIN LANDING PAGE - REGISTRATION AND LOGIN
 @app.route("/")
 def index():
+    print ('*'*20)
+    print ('Rendering index.html')
     return render_template("index.html")
 
+#   CREATE NEW USER
 @app.route("/user/create", methods=["POST"])
 def create():
+    print ('*'*20)
     print ('Got registration request')
     print (request.form)
 
@@ -89,8 +94,11 @@ def create():
         print ("BAD DATA, DID NOT COMMIT")
     return redirect("/")
 
+#   USER LOGIN SEQUENCE
 @app.route("/user/login", methods=["POST"])
 def login():
+    print ('*'*20)
+    print ('Attempting to log user in')
     # Set up session data for auth = False
     if 'auth' not in session:
         session['auth'] = False
@@ -144,16 +152,68 @@ def login():
     # If user/pwd is wrong, punt back to /
     return redirect('/')
 
+#   USER HOME PAGE  
 @app.route("/user/<int:id>")
 def home(id): 
-    print ('entering /home (post auth)')
-    print (session)
-    if (session['auth']==True)  and (id == session['id']):
-        print ('session auth is true, going to render home.html next')
-        return render_template('home.html',session=session)
-    else:
+    print ('*'*20)
+    print ('Moving to user home page, post auth')
+
+    # If user not logged in or landing at right place, punt back to /
+    if (session['auth']==False)  or (id != session['id']):
         return redirect('/')
 
+    # Grab tweets to pass into render_template
+    mysql = connectToMySQL('registration')
+    query = 'SELECT CONCAT(users.first_name," ",users.last_name) as creator, tweets.message,tweets.created_at FROM registration.tweets JOIN registration.users ON users.id = tweets.creator_id ORDER BY tweets.created_at DESC'
+    data = {}
+    tweets = mysql.query_db(query,data)
+    print ("tweets =",tweets)
+
+    # Render page back to user
+    return render_template('home.html',session=session,tweets=tweets)
+    
+#   CREATE TWEETS 
+@app.route("/tweets/create", methods=["POST"])
+def create_tweets():
+
+    print ('*'*20)
+    print ('Got request to create a tweet')
+    print (request.form)
+
+    # If user not logged in, punt back to /
+    if (session['auth']==False):
+        return redirect('/')
+    
+    # form validation
+    is_valid=True
+    if len(request.form['message'])<1:
+        flash ("Tweet must contain at least one character","tweet")
+        is_valid=False
+    elif len(request.form['message'])>255:
+        flash ("Tweet must be 255 chars or less","tweet")
+        is_valid=False
+    
+    if is_valid==False:
+        print ("******** tweet validation failed ********")
+        return redirect('/user/'+str(session['id']))
+
+    # Commit tweet to database
+    mysql = connectToMySQL('registration')
+    query = 'INSERT INTO tweets (creator_id, message) VALUES ( %(creator_id)s, %(message)s )'
+    print (query)
+    data = {
+        'creator_id': session['id'],
+        'message': request.form['message']
+    }
+    tweet_id = mysql.query_db(query,data)
+    print('tweet_id =',tweet_id)
+    flash("Successfully added!")
+
+    return redirect('/user/'+str(session['id']))
+
+
+        
+#   LOGOUT SEQUENCE
 @app.route("/logout")
 def logout():
     session.clear()
