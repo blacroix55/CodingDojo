@@ -44,7 +44,18 @@
                 {% for tweet in tweets %}
                 <div class="row border m-2 p-2">
                     <h5 class="w-100">{{tweet.creator}} says:</h5>
-                    <p>{{tweet.message}}</p>
+                    <p class="w-100">{{tweet.message}}</p>
+                    <form action="/tweets/{{tweet.id}}/add_like" method="POST">
+                        <input class="col btn btn-primary" type="submit" name="like" value="Like">
+                    </form>
+                    <p class="col"> </p>
+                    {% if session['id'] == tweet.creator_id %}
+                    <form action="/tweets/{{tweet.id}}/delete" method="POST">
+                        <input class="col btn align-items-end btn-primary" type="submit" name="delete" value="Delete">
+                    </form>
+                    {% else %}
+                    THIS IS THE ELSE STATEMENT
+                    {% endif %}
                 </div>
                 {% endfor %}
             </div>

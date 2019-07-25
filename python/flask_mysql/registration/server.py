@@ -153,18 +153,18 @@ def login():
     return redirect('/')
 
 #   USER HOME PAGE  
-@app.route("/user/<int:id>")
-def home(id): 
+@app.route("/user/<int:user_id>")
+def home(user_id): 
     print ('*'*20)
     print ('Moving to user home page, post auth')
 
     # If user not logged in or landing at right place, punt back to /
-    if (session['auth']==False)  or (id != session['id']):
+    if (session['auth']==False)  or (user_id != session['id']):
         return redirect('/')
 
     # Grab tweets to pass into render_template
     mysql = connectToMySQL('registration')
-    query = 'SELECT CONCAT(users.first_name," ",users.last_name) as creator, tweets.message,tweets.created_at FROM registration.tweets JOIN registration.users ON users.id = tweets.creator_id ORDER BY tweets.created_at DESC'
+    query = 'SELECT CONCAT(users.first_name," ",users.last_name) as creator, tweets.creator_id, tweets.id, tweets.message,tweets.created_at FROM registration.tweets JOIN registration.users ON users.id = tweets.creator_id ORDER BY tweets.created_at DESC'
     data = {}
     tweets = mysql.query_db(query,data)
     print ("tweets =",tweets)
@@ -209,6 +209,56 @@ def create_tweets():
     print('tweet_id =',tweet_id)
     flash("Successfully added!")
 
+    return redirect('/user/'+str(session['id']))
+
+#   LIKE TWEETS 
+@app.route("/tweets/<tweet_id>/add_like", methods=["POST"])
+def like_tweet(tweet_id):
+    print ('*'*20)
+    print ('Got request to like a tweet')
+    if (session['auth']==False):
+        return redirect('/')
+    
+    # CHECK TO SEE IF UER ALREADY LIKES POST #
+    mysql = connectToMySQL('registration')
+    query = 'SELECT id FROM likes WHERE tweet_id=%(tweet_id)s AND user_id=%(user_id)s'
+    data = {
+    'user_id': session['id'],
+    'tweet_id': tweet_id
+    }
+    like = mysql.query_db(query,data)
+    
+    # if like exists, skip; otherwise, add the like to the DB
+    if like:
+        print ("User already likes this tweet!")
+    else: 
+        print ("Adding like")
+        mysql = connectToMySQL('registration')
+        query = 'INSERT INTO likes (user_id, tweet_id) VALUES ( %(user_id)s, %(tweet_id)s )'
+        data = {
+            'user_id': session['id'],
+            'tweet_id': tweet_id
+        }
+        like = mysql.query_db(query,data)
+        print ("Like response =",like)
+
+    return redirect('/user/'+str(session['id']))
+
+
+#   DELETE TWEETS 
+@app.route("/tweets/<id>/delete", methods=["POST"])
+def delete_tweet(id):
+    print ('*'*20)
+    print ('Got request to delete a tweet')
+    if (session['auth']==False):
+        return redirect('/')
+    mysql = connectToMySQL('registration')
+    query = 'DELETE FROM registration.tweets WHERE tweets.id=%(id)s'
+    data = {
+        'id': id
+    }
+    delete_id = mysql.query_db(query,data)
+    print ("Tweet ID deleted:",delete_id)
     return redirect('/user/'+str(session['id']))
 
 
