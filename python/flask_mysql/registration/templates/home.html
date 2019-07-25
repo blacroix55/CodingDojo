@@ -50,12 +50,12 @@
                     </form>
                     <p class="col"> </p>
                     {% if session['id'] == tweet.creator_id %}
-                    <form action="/tweets/{{tweet.id}}/edit" method="POST">
-                        <input class="col btn align-items-middle btn-primary" type="submit" name="edit" value="Edit">
+                    <form action="/tweets/{{tweet.id}}/edit">
+                        <input class="col btn align-items-middle btn-primary" type="submit" value="Edit">
                     </form>
                     <p class="col"> </p>
-                    <form action="/tweets/{{tweet.id}}/delete" method="POST">
-                        <input class="col btn align-items-end btn-primary" type="submit" name="delete" value="Delete">
+                    <form action="/tweets/{{tweet.id}}/delete">
+                        <input class="col btn align-items-end btn-primary" type="submit" value="Delete">
                     </form>
                     {% endif %}
                 </div>

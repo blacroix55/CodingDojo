@@ -245,7 +245,7 @@ def like_tweet(tweet_id):
     return redirect('/user/'+str(session['id']))
 
 #   EDIT TWEETS 
-@app.route("/tweets/<tweet_id>/edit", methods=['POST'])
+@app.route("/tweets/<tweet_id>/edit")
 def edit_tweet(tweet_id):
     print ('*'*20)
     print ('Got request to edit a tweet')
@@ -270,6 +270,19 @@ def update_tweet(tweet_id):
     print ('Got request to update a tweet')
     print ("form data=",request.form)
 
+    # form validation
+    is_valid=True
+    if len(request.form['message'])<1:
+        flash ("Tweet must contain at least one character","tweet")
+        is_valid=False
+    elif len(request.form['message'])>255:
+        flash ("Tweet must be 255 chars or less","tweet")
+        is_valid=False
+    
+    if is_valid==False:
+        print ("******** tweet validation failed ********")
+        return redirect('/tweets/'+tweet_id+"/edit")
+
     if 'cancel' in request.form:
         print ('user clicked cancel, redirecting to user home')
         
@@ -287,7 +300,7 @@ def update_tweet(tweet_id):
     return redirect('/user/'+str(session['id']))
 
 #   DELETE TWEETS 
-@app.route("/tweets/<id>/delete", methods=["POST"])
+@app.route("/tweets/<id>/delete")
 def delete_tweet(id):
     print ('*'*20)
     print ('Got request to delete a tweet')

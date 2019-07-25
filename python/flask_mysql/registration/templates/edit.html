@@ -24,6 +24,13 @@
             <div class="col-6">
                 <h4 class="m-3">Edit a Tweet:</h4>
                 <textarea class="m-3 form-control" name="message" rows=5>{{tweet.0.message}}</textarea>
+                {%- with errors = get_flashed_messages(category_filter=['tweet']) %}
+                    {% if errors %} 
+                        <div class="alert alert-danger" role="alert"> 
+                            {{errors.0}}
+                        </div>
+                    {% endif %}
+                {% endwith %}
             </div>
             <div class="col-6">
                     <input class="m-3 btn btn-primary" type="submit" name="update" value="Update">
