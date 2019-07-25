@@ -152,7 +152,7 @@ def login():
     # If user/pwd is wrong, punt back to /
     return redirect('/')
 
-#   USER HOME PAGE  
+#   USER HOME PAGE  (aka dashboard) 
 @app.route("/user/<int:user_id>")
 def home(user_id): 
     print ('*'*20)
@@ -162,12 +162,38 @@ def home(user_id):
     if (session['auth']==False)  or (user_id != session['id']):
         return redirect('/')
 
+    # Grab who we are following to pass into render_template
+    mysql = connectToMySQL('registration')
+    query = 'SELECT following_id FROM follows WHERE follower_id=%(follower_id)s'
+    data = {
+        'follower_id': user_id
+    }
+    following = mysql.query_db(query,data)
+    print ("following =",following)
+
+    # Convert following's dictionary into a string to pass into tweet query
+    following_ids="("
+    for id in following:
+        following_ids= following_ids + str(id['following_id'])+","
+    following_ids=following_ids+str(user_id)+")"
+    print (following_ids)
+
     # Grab tweets to pass into render_template
     mysql = connectToMySQL('registration')
-    query = 'SELECT CONCAT(users.first_name," ",users.last_name) as creator, tweets.creator_id, tweets.id, tweets.message,tweets.created_at FROM registration.tweets JOIN registration.users ON users.id = tweets.creator_id ORDER BY tweets.created_at DESC'
-    data = {}
+    query = 'SELECT CONCAT(users.first_name," ",users.last_name) as creator, tweets.creator_id, tweets.id, tweets.message,tweets.created_at '
+    query = query + 'FROM registration.tweets JOIN registration.users ON users.id = tweets.creator_id WHERE creator_id IN '+following_ids
+    query = query + ' ORDER BY tweets.created_at DESC'
+    data = {
+        'following_ids': following_ids
+    }
     tweets = mysql.query_db(query,data)
     print ("tweets =",tweets)
+
+
+#[{'following_id': 17}, {'following_id': 17}, {'following_id': 17}, {'following_id': 17}, {'following_id': 16}, {'following_id': 6}]
+
+
+
 
     # Render page back to user
     return render_template('home.html',session=session,tweets=tweets)
@@ -315,8 +341,42 @@ def delete_tweet(id):
     print ("Tweet ID deleted:",delete_id)
     return redirect('/user/'+str(session['id']))
 
+#   USERS PAGE 
+@app.route("/users")
+def user_follows():
+    print ('*'*20)
+    print ('Going to users page to follow people')
+    if (session['auth']==False):
+        return redirect('/')
 
-        
+    # Get full userlist
+    mysql = connectToMySQL('registration')
+    query = 'SELECT id,first_name,last_name,email FROM users ORDER BY last_name'
+    data = {}
+    users = mysql.query_db(query,data)
+    print ("users:",users)
+
+    return render_template('users.html',users=users,my_id=session['id'])
+
+#   FOLLOW SOMEONE 
+@app.route("/user/<follower_id>/follow/<following_id>")
+def add_follow(follower_id,following_id):
+    print ('*'*20)
+    print ('Got request to follow someone')
+    if (session['auth']==False):
+        return redirect('/')
+
+    mysql = connectToMySQL('registration')
+    query = 'INSERT INTO follows (follower_id, following_id) VALUES (%(follower_id)s, %(following_id)s)'
+    data = {
+        'follower_id': follower_id,
+        'following_id': following_id
+    }
+    users = mysql.query_db(query,data)
+    print ("users:",users)
+
+    return redirect('/users')
+
 #   LOGOUT SEQUENCE
 @app.route("/logout")
 def logout():

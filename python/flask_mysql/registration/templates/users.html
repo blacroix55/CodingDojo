@@ -14,7 +14,7 @@
                 <h5>Dojo Tweets</h1>
             </div>
             <div class="col-5">
-                <a href='/users'>Users</a>
+                <a href='/user/{{session.id}}'>Dashboard</a>
             </div>
             <div class="col-3">
                 <h5>Welcome, {{session.first_name}}</h1>
@@ -23,22 +23,27 @@
                 <a href='/logout'>logout</a>
             </div>
         </div> 
-        <form class="row align-items-end form-group" action="/tweets/{{tweet.0.id}}/update" method="POST">
-            <div class="col-6">
-                <h4 class="m-3">Edit a Tweet:</h4>
-                <textarea class="m-3 form-control" name="message" rows=5>{{tweet.0.message}}</textarea>
-                {%- with errors = get_flashed_messages(category_filter=['tweet']) %}
-                    {% if errors %} 
-                        <div class="alert alert-danger" role="alert"> 
-                            {{errors.0}}
-                        </div>
+        <h4 class="m-3">Users:</h4>
+        <div class="row m-3"> 
+            <table class="table table-bordered">
+                <tr>
+                    <th>Name</th>
+                    <th class="text-right"> Email</th>
+                    <th>Actions</th>
+                </tr>
+                {% for user in users %}
+                
+                <tr>
+                    <td>{{user.first_name}} {{user.last_name}}</td>
+                    <td class="text-right">{{user.email}}</td>
+                    {% if user.id != my_id %}
+                    <td> <a href="/user/{{my_id}}/follow/{{user.id}}">Follow</td>
+                    {% else %}
+                    <td> This is you! </td>
                     {% endif %}
-                {% endwith %}
-            </div>
-            <div class="col-6">
-                    <input class="m-3 btn btn-primary" type="submit" name="update" value="Update">
-                    <input class="m-3 btn btn-primary" type="submit" name="cancel" value="Cancel">
-            </div>
-        </form>
+                </tr>  
+                {% endfor %}
+            </table>
+        </div>
     </div>
 </body>
