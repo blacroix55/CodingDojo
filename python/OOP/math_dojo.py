@@ -23,5 +23,5 @@ print(x)	# should print 5
 
 # run each of the methods a few more times and check the result!
 brian = MathDojo() # runs __init__, which in this case sets brian.result to 0
-y = brian.add(5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1).subtract(1,1,1,1,1,1,1,1,1,1).result
+y = brian.add(5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1).subtract(1,1,1,1,1,1,1,1,1,1).add(1,2,3).subtract(1,2,3).result
 print (y)
