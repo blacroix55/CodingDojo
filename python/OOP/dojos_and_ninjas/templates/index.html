@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Dojos and Users</title>
+</head>
+<body>
+    <div class='container'>
+        <div class='row border-bottom justify-content-center'>
+            <div class='col-5'>
+                <h2 class='text-center'>Add a Dojo</h2>
+                <form class='form-group border-0' action="/dojos/create" method="POST">
+                    <table class="table-borderless ">
+                        <tr>
+                            <td>Name</td>
+                            <td><input type='text' name='dojo_name'></td>
+                        </tr>
+                        <tr>
+                            <td>City</td>
+                            <td><input type='text' name='dojo_city'></td>
+                        </tr>
+                        <tr>
+                            <td>State</td>
+                            <td><input type='text' name='dojo_state'></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type='submit' value='Add'></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class='col-5'>
+                <h2 class='text-center'>Add a Ninja</h2>
+                <form class='form-group' action="/users/create" method="POST">
+                    <table class='table-borderless'>
+                        <tr>
+                            <td>First Name</td>
+                            <td><input type='text' name='first_name'></td>
+                        </tr>
+                        <tr>
+                            <td>Last Name</td>
+                            <td><input type='text' name='last_name'></td>
+                        </tr>
+                        <tr>
+                            <td>Dojo</td>
+                            <td><select name='dojo'>
+                                {% for dojo in dojos %}
+                                <option value='{{dojo.id}}'>{{dojo.name}}</option>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type='submit' value='Add'></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class='row justify-content-center'>
+            <div class='col-6' >
+                <h2 class='text-center'>All the Dojos</h2>
+                <ul class='list-group'>
+                    {% for dojo in dojos %}
+                    <li class='list-group-item border-0 font-weight-bold'>Ninjas at the {{ dojo.name }}</li>
+                    <ul>
+                        {% for ninja in ninjas %}
+                        {% if dojo.id == ninja.dojo_id %}
+                        <li>{{ninja.first_name}} {{ninja.last_name}}</li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
