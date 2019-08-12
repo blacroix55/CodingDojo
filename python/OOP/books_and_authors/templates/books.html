@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Books and Authors</title>
+</head>
+<body>
+    <div class='container'>
+        <div class='row border-bottom justify-content-center'>
+            <div class='col'>
+                <h2>{{book.title}}</h2>
+                <table class="table-borderless ">
+                    <tr>
+                        <td>ID: </td>
+                        <td>{{book.id}}</td>
+                    </tr>
+                    <tr>
+                        <td>Description: </td>
+                        <td>{{book.title}}</td>
+                    </tr>
+                </table>
+                <span>Authors:</sapn>
+                <ul>
+                    {% for author_of_book in book.authors_of_book %}
+                    <li>{{author_of_book.first_name}} {{author_of_book.last_name}}</li>
+                    {% endfor %}
+                </ul>
+                <form class='form-group border-0' action="/book/{{book.id}}/add" method="POST">
+                    <select name='author_id'>
+                        <option value=''>Select an author here</option>
+                        {% for author in authors %}
+                        <option value='{{author.id}}'>{{author.first_name}} {{author.last_name}}</option>
+                        {% endfor %}
+                    </select>
+                    <input type='submit' value='Add'>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

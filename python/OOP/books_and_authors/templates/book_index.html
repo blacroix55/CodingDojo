@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Books and Authors</title>
+</head>
+<body>
+    <div class='container'>
+        <div class='row border-bottom justify-content-center'>
+            <div class='col-6'>
+                <h2 class='text-center'>Add a Book</h2>
+                <form class='form-group border-0' action="/books/create" method="POST">
+                    <table class="table-borderless ">
+                        <tr>
+                            <td>Title</td>
+                            <td><input type='text' name='title'></td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td><textarea name='description' rows='3'></textarea></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type='submit' value='Add'></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class='col-6'>
+                <table class='table'>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Action</th>
+                    </tr>
+                    {% for book in books %}
+                    <tr>
+                        <td>{{book.id}}</td>
+                        <td>{{book.title}}</td>
+                        <td><a href='/books/{{book.id}}'>View</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
