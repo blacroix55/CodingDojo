@@ -1,5 +1,5 @@
 from sqlalchemy.sql import func
-from config import db
+from config import app,db
 
 class User(db.Model):	
     # __tablename__ = "users"    # optional	- if not specified, will user class name as table name.
