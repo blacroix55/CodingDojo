@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Successful Auth</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row border">
+            <div class="col-2">
+                <h5>Dojo Tweets</h1>
+            </div>
+            <div class="col-5">
+                <a href='/users'>Users</a>
+            </div>
+            <div class="col-3">
+                <h5>Welcome, {{session.first_name}}</h1>
+            </div>
+            <div class="col-2">
+                <a href='/logout'>logout</a>
+            </div>
+        </div> 
+        <form class="row align-items-end form-group" action="/tweets/create" method="POST">
+            <div class="col-6">
+                <h4 class="m-3">Write a Tweet:</h4>
+                <textarea class="m-3 form-control" name="message" rows=5>Enter your tweet here...</textarea>
+                {%- with errors = get_flashed_messages(category_filter=['tweet']) %}
+                    {% if errors %} 
+                        <div class="alert alert-danger" role="alert"> 
+                            {{errors.0}}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            </div>
+            <div class="col-6">
+                    <input class="m-3 btn btn-primary" type="submit" value="Submit">
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-3">
+                <h4 class="m-3">Your Feed</h4>
+            </div>
+            <div class="col-6">
+                {% for tweet in tweets %}
+                <div class="row border m-2 p-2">
+                    <h5 class="w-100">{{tweet.creator.first_name}} {{tweet.creator.last_name}} says:</h5>
+                    <p class="w-100">{{tweet.message}}</p>
+                    <form action="/tweets/{{tweet.id}}/add_like" method="POST">
+                        <input class="col btn btn-primary" type="submit" name="like" value="Like">
+                    </form>
+                    <p class="col"> </p>
+                    {% if session['id'] == tweet.creator_id %}
+                    <form action="/tweets/{{tweet.id}}/edit">
+                        <input class="col btn align-items-middle btn-primary" type="submit" value="Edit">
+                    </form>
+                    <p class="col"> </p>
+                    <form action="/tweets/{{tweet.id}}/delete">
+                        <input class="col btn align-items-end btn-primary" type="submit" value="Delete">
+                    </form>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
