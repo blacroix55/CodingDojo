@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Registration and Login</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1>Registration</h1>
+                <form action="/user/create" method="POST">
+                    <div class="form-group">
+                        <label >First Name:</label>
+                        <input class="form-control" type="text" name="first_name" placeholder="Enter first name here">
+                        {%- with errors = get_flashed_messages(category_filter=['first_name']) %}
+                            {% if errors %} 
+                                {% for error in errors %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{error}} 
+                                    </div>
+                                {% endfor %}
+                            {% endif %} 
+                        {% endwith -%}
+                    </div>
+                    <div class="form-group">
+                        <label >Last Name: </label>
+                        <input class="form-control" type="text" name="last_name" placeholder="Enter last name here">
+                        {%- with errors = get_flashed_messages(category_filter=['last_name']) %}
+                            {% if errors %} 
+                                {% for error in errors %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{error}} 
+                                    </div>                                
+                                {% endfor %}
+                            {% endif %} 
+                        {% endwith -%}
+                    </div>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input class="form-control" type="text" name="email" placeholder="email@domain.com">
+                        {%- with errors = get_flashed_messages(category_filter=['email']) %}
+                            {% if errors %} 
+                                {% for error in errors %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{error}} 
+                                    </div>                                
+                                {% endfor %}
+                            {% endif %} 
+                        {% endwith -%}  
+                    </div>
+                    <div class="form-group">
+                        <label>Password:</label>
+                        <input class="form-control" type="password" name="password" placeholder="Minimum of 5 characters">
+                        {%- with errors = get_flashed_messages(category_filter=['password']) %}
+                            {% if errors %} 
+                                {% for error in errors %}
+                                    <div class="alert alert-danger" role="alert">   
+                                        {{error}} 
+                                    </div>
+                                {% endfor %}
+                            {% endif %} 
+                        {% endwith -%}
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password:</label>
+                        <input class="form-control" type="password" name="password_conf" placeholder="Must match password">
+                        {%- with errors = get_flashed_messages(category_filter=['password_conf']) %}
+                            {% if errors %} 
+                                {% for error in errors %}
+                                    <div class="alert alert-danger" role="alert">   
+                                        {{error}} 
+                                    </div>
+                                {% endfor %}
+                            {% endif %} 
+                        {% endwith -%}
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="Register">
+                </form>
+            </div>
+            <div class="col-sm-6">
+                <h1>Login</h1>
+                <form action="/user/login" method="POST">
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input class="form-control" type="text" name="email" placeholder="email@domain.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Password:</label>
+                        <input class="form-control" type="password" name="password" placeholder="Minimum of 5 characters">
+                        {%- with errors = get_flashed_messages(category_filter=['auth']) %}
+                            {% if errors %} 
+                                <div class="alert alert-danger" role="alert"> 
+                                    {{errors.0}}
+                                </div>
+                            {% endif %} 
+                        {% endwith -%}
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="Login">
+                </form>
+            </div> 
+        </div>
+    </div>
+</body>
+</html>
