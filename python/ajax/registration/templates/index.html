@@ -19,6 +19,17 @@
                         $('#emailMsg').html(res)  // manipulate the dom when the response comes back
                     })
                 })
+                $('#emailSearch').keyup(function(){
+                    var data = $("#searchForm").serialize()   // capture all the data in the form in the variable data
+                    $.ajax({
+                        method: "POST",   // we are using a post request here, but this could also be done with a get
+                        url: "/user/search",
+                        data: data
+                    })
+                    .done(function(res){
+                        $('#friendList').html(res)  // manipulate the dom when the response comes back
+                    })
+                })
             })
         </script>
     <title>Registration</title>
@@ -119,6 +130,15 @@
                     <input class="btn btn-primary" type="submit" value="Login">
                 </form>
             </div> 
+        </div>
+        <div class="row mt-4">
+            <div class="col-6">
+                <form id="searchForm" action="/user/search" method="POST">
+                    <p>Find your friends by email address:</p>
+                    <input id="emailSearch" class="form-control" type="text" name="email" placeholder="email@domain.com" autocomplete="off"> 
+                    <div id="friendList" class="m-4"></div>
+                </form>
+            </div>
         </div>
     </div>
 </body>

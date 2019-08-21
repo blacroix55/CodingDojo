@@ -1,0 +1,7 @@
+{% if results == False %}
+    <!-- No content, clearing the search box -->
+{% else %}
+    {% for result in results %}
+        <p>{{result.email}}</p>
+    {% endfor %}
+{% endif %}

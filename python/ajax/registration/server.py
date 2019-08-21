@@ -33,6 +33,22 @@ def emailCheck():
         print ("DID NOT FIND EMAIL ADDRESS")
     return render_template('partials/email.html', found=found) 
 
+# SEARCH FOR FRIENDS BY EMAIL ADDRESS
+@app.route("/user/search", methods=["POST"])
+def emailSearch():
+    print ("KEY UP IN SEARCH FIELD, CHECKING AGAINST DB")
+    # If key up results in nothing to query, results would be ALL email addresses, which is undesired.
+    # So simply set results to False, which will clear the search results in partials/searchList.html
+    if (len(request.form['email'])) == 0:
+        results=False
+    else:
+        mysql = connectToMySQL('registration')        # connect to the database
+        query = "SELECT email from users WHERE users.email LIKE %(email)s;"
+        data = { 'email': request.form['email']+'%%' }
+        results = mysql.query_db(query, data)
+    print ("Email search results (LIKE) =",results)
+    return render_template('partials/searchList.html', results=results) 
+
 #   CREATE NEW USER
 @app.route("/user/create", methods=["POST"])
 def create():
