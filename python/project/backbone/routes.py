@@ -2,8 +2,11 @@ from config import app
 from controller_functions import *
 
 
-# HOME PAGE
+# HOME PAGE - INDEX
 app.add_url_rule("/", view_func=index)
+
+# HOME PAGE - ROUTER SEARCH
+app.add_url_rule("/routers/search", view_func=router_search, methods=["POST"])
 
 # ROUTER TYPES
 app.add_url_rule("/router_types/index", view_func=router_types_index, methods=["POST"])
@@ -26,7 +29,9 @@ app.add_url_rule("/int_profile_type/add", view_func=int_profile_types_add, metho
 app.add_url_rule("/int_profile_type/delete/<int:int_profile_type_id>", view_func=int_profile_types_delete, methods=["POST"])
 
 # ROUTERS 
-app.add_url_rule("/select/device", view_func=select_device, methods=["POST"])
-app.add_url_rule("/create/router", view_func=create_router, methods=["POST"])
-app.add_url_rule("/delete/router/<int:router_id>", view_func=delete_router, methods=["POST"])
+app.add_url_rule("/router/index", view_func=router_index, methods=["POST"])
+app.add_url_rule("/router/add", view_func=router_add, methods=["POST"])
+app.add_url_rule("/router/delete/<int:router_id>", view_func=router_delete, methods=["POST"])
+app.add_url_rule("/router/edit/<int:router_id>", view_func=router_edit, methods=["POST"])
+
 

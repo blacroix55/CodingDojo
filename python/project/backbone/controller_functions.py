@@ -9,13 +9,17 @@ def consoleMsg(msg):
 def index():
     consoleMsg('User landed on home page')
     data=routers.query.all()
+    print ("Router list:",data)
     return render_template("index.html", routers=data)
 
-def generic_index(db_table,html_file):
-    consoleMsg('testing generic index for '+db_table+" table")
-    data=db_table.query.all()
-    print(data)
-    return render_template("partial/"+html_file+".html", router_types=data)
+def router_search():
+    consoleMsg('User doing search query')
+    q=request.form['search_data']+"%%"
+    data=routers.query.filter(routers.name.like(q))
+    rtr_types=router_types.query.all()
+    print ("Router list:",data)
+    return render_template("partial/router_index.html", routers=data,rtr_types=rtr_types)
+
 
 
 ###################
@@ -160,31 +164,45 @@ def int_profile_types_delete(int_profile_type_id):
 #
 #   THE FOLLOWING SECTION IS FOR CREATING AND DELETING OF ROUTERS
 
-def select_device():
-    consoleMsg('User selected device type from main pulldown menu')
+def router_index():
+    consoleMsg('User router index')
     # Routers, needs to be in nested if statement eventually
-    router_list=routers.query.all()
-    print ("Router list:",router_list)
-    return render_template("partial/router-main.html", routers=router_list)
+    data=routers.query.all()
+    rtr_types=router_types.query.all()
+    print ("Router list:",data)
+    print ("router types:",rtr_types)
+    return render_template("partial/router_index.html", routers=data, rtr_types=rtr_types )
 
-def create_router():
+def router_add():
     consoleMsg('User requested to create new router')
+    print(request.form)
     # Add new router
     router= routers(
-        name=request.form['router_name']
+        name=request.form['name'],
+        router_type_id=request.form['router_type_id']
     )
     db.session.add(router)
     db.session.commit()
     # Get updated router list
-    router_list=routers.query.all()
-    return render_template("partial/router-main.html", routers=router_list)
+    data=routers.query.all()
+    rtr_types=router_types.query.all()
+    print ("Router list:",data)
+    return render_template("partial/router_index.html", routers=data, rtr_types=rtr_types)
 
-def delete_router(router_id):
+def router_delete(router_id):
     consoleMsg('User requested to delete router with router_id of'+str(router_id))
     # Delete router
     router_to_delete = routers.query.get(router_id)
     db.session.delete(router_to_delete)
     db.session.commit()
     # Get updated router list
-    router_list=routers.query.all()
-    return render_template("partial/router-main.html", routers=router_list)
+    data=routers.query.all()
+    rtr_types=router_types.query.all()
+    return render_template("partial/router_index.html", routers=data, rtr_types=rtr_types)
+
+def router_edit(router_id):
+    consoleMsg('User requested to edit router with router_id of'+str(router_id))
+    # Get router data
+    data = routers.query.get(router_id)
+    rtr_types=router_types.query.all()
+    return render_template("partial/router_edit.html", router=data,rtr_types=rtr_types)

@@ -1,0 +1,46 @@
+<div class='col-4'>
+        <div class='row p-2'>
+            <h6>Edit Router: {{router.name}}</h6>
+            <form id='new_device_type' method="POST">
+                <input name='name' value="{{router.name}}">
+                <select class='form_control' function='index' name='router_type_id'>
+                    {% for rtr_type in rtr_types %}
+                    {% if rtr_type.id == router.router_type.id %}
+                    <option selected value='{{rtr_type.id}}'>{{rtr_type.model}}</option>
+                    {% else %}
+                    <option value='{{rtr_type.id}}'>{{rtr_type.model}}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <button class='form_button' data-url='/router/update/{{router.id}}' type='button'>Update</button>
+            </form>
+        </div>
+    </div>
+    <div class='col-8'>
+        <table class='table'>
+            <form class='router_linecards' method='POST'>
+                <thead>
+                    <th>SLOT</th>
+                    <th>Linecard Type</th>
+                </thead>
+                <tbody>
+                    {% for i in range(router.router_type.num_slots) %}
+                    <tr>
+                        <td>{{i}}</td>
+                        <td>
+                            <select class='modify_devices' function='index' name='linecard_slot_{{i}}'>
+                                <option data-url='/router/linecard/remove'>NONE</option>
+                                <option data-url='/router/linecard/add/1'>MPC6E</option>
+                                <option data-url='/router/linecard/add/2'>MPC8</option>
+                                <option data-url='/router/linecard/add/3'>MPC9</option>
+                            </select>
+                        </td>
+                    {% endfor %}
+                    </tr>
+                </tbody>
+            </form>
+        </table>
+        </ul>    
+    </div>
+
+
