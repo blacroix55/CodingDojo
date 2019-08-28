@@ -33,5 +33,5 @@ app.add_url_rule("/router/index", view_func=router_index, methods=["POST"])
 app.add_url_rule("/router/add", view_func=router_add, methods=["POST"])
 app.add_url_rule("/router/delete/<int:router_id>", view_func=router_delete, methods=["POST"])
 app.add_url_rule("/router/edit/<int:router_id>", view_func=router_edit, methods=["POST"])
-
+app.add_url_rule("/router/update/<int:router_id>",view_func=router_update, methods=["POST"])
 

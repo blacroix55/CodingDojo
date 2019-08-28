@@ -4,7 +4,7 @@
         <form id='new_device_type' method="POST">
             <input name='name' placeholder="Router name here">
             <select class='form_control' function='index' name='router_type_id'>
-                <option data=''>Select device type</option>
+                <option value=''>Select device type</option>
                 {% for rtr_type in rtr_types %}
                 <option value='{{rtr_type.id}}'>{{rtr_type.model}}</option>
                 {% endfor %}
