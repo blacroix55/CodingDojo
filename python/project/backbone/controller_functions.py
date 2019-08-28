@@ -2,9 +2,40 @@ from flask import render_template, request, redirect
 from config import db
 from models import *
 
+###################
+#
+# General tools, used throughout the application
+
 def consoleMsg(msg):
     print('*'*80)
     print(msg)
+
+def linecard_list(router_id):
+    # Get current router + current router's installed linecards
+    router = routers.query.get(router_id)
+
+    # Build out a blank list-of-dictionaries structure for the current router, based on number of linecard slots available
+    print ("building linecard_list")
+    linecard_list=[]
+    for i in range(router.router_type.num_slots):
+        print ('appending list')
+        linecard_list.append({})
+    
+    # Iterate through current linecards, updating the dict entry for the linecard based on it's index
+    print ('iterating through cur_rtr.linecards_installed', router.linecards_installed)
+    for linecard in router.linecards_installed:
+        linecard_list[linecard.router_slot]={
+            'linecard_type_id': linecard.linecard_type_id,
+            'router_linecard_id': linecard.id
+        }
+
+    # print results
+    print (linecard_list)
+    return linecard_list
+
+###################
+#
+# Main page stuffs
 
 def index():
     consoleMsg('User landed on home page')
@@ -210,40 +241,18 @@ def router_edit(router_id):
 
     return render_template("partial/router_edit.html", router=data,rtr_types=rtr_types,linecard_types=lc_types, current_linecards=current_linecards)
 
-def linecard_list(router_id):
-    # Get current router + current router's installed linecards
-    router = routers.query.get(router_id)
-
-    # Build out a blank list-of-dictionaries structure for the current router, based on number of linecard slots available
-    print ("building linecard_list")
-    linecard_list=[]
-    for i in range(router.router_type.num_slots):
-        print ('appending list')
-        linecard_list.append({})
-    
-    # Iterate through current linecards, updating the dict entry for the linecard based on it's index
-    print ('iterating through cur_rtr.linecards_installed', router.linecards_installed)
-    for linecard in router.linecards_installed:
-        linecard_list[linecard.router_slot]={
-            'linecard_type_id': linecard.linecard_type_id,
-            'router_linecard_id': linecard.id
-        }
-
-    # print results
-    print (linecard_list)
-    return linecard_list
-
 def router_update(router_id):
     consoleMsg('User requested to UPDATE router with router_id of '+str(router_id))
     
     # Snag current database entries for this router + which linecards are in it, convert to dict of dicts, keyed by router_slot
     current_cards=linecard_list(router_id)
 
-    # NEED TO ADD SECTION TO ALLOW FOR UPDATING OF ROUTER NAME AND ROUTER TYPE, WHICH IS ALREADY PASSED IN VIA REQUEST.FORM
-
     # Go through request form, compare to current cards, update/delete as needed
     print ("request form =",request.form)
     print ("starting to process request form for update")
+
+    # NEED TO ADD SECTION TO ALLOW FOR UPDATING OF ROUTER NAME AND ROUTER TYPE, WHICH IS ALREADY PASSED IN VIA REQUEST.FORM
+
     for key,value in request.form.items():
         if 'slot' in key:
             slot=int(key[5:])
@@ -286,24 +295,6 @@ def router_update(router_id):
                 data.linecard_type_id=new_linecard_type_id
                 db.session.commit()
             
-        print (key,request.form[key])
-
-    # # Manually deleting a linecard<->router mapping
-    # print ("manually deleting id=2")
-    # data = routers_linecards.query.get(2)
-    # db.session.delete(data)
-    # db.session.commit()
-
-    # manually add a couple linecards linecards
-    # data = routers_linecards(
-    #     id=4,
-    #     router_id=1,
-    #     linecard_type_id=2,
-    #     router_slot=5
-    # )
-    # db.session.add(data)
-    # db.session.commit()
-
     # Snagging current DB info to re-populate content window
     data = routers.query.get(router_id)
     print ("data = ",data.__dict__)
