@@ -206,9 +206,9 @@ def router_edit(router_id):
     data = routers.query.get(router_id)
     rtr_types=router_types.query.all()
     lc_types=linecard_types.query.all()
-    current_cards=rtr_to_lc_dictionary(router_id)
+    current_linecards=linecard_list(router_id)
 
-    return render_template("partial/router_edit.html", router=data,rtr_types=rtr_types,linecard_types=lc_types, current_cards=current_cards)
+    return render_template("partial/router_edit.html", router=data,rtr_types=rtr_types,linecard_types=lc_types, current_linecards=current_linecards)
 
 def rtr_to_lc_dictionary(router_id):
     cur_rtr = routers.query.get(router_id)
@@ -224,48 +224,84 @@ def rtr_to_lc_dictionary(router_id):
     print (dict_of_cards)
     return dict_of_cards
 
+def linecard_list(router_id):
+    # Get current router + current router's installed linecards
+    router = routers.query.get(router_id)
+
+    # Build out a blank list-of-dictionaries structure for the current router, based on number of linecard slots available
+    print ("building linecard_list")
+    linecard_list=[]
+    for i in range(router.router_type.num_slots):
+        print ('appending list')
+        linecard_list.append({})
+    
+    # Iterate through current linecards, updating the dict entry for the linecard based on it's index
+    print ('iterating through cur_rtr.linecards_installed', router.linecards_installed)
+    for linecard in router.linecards_installed:
+        linecard_list[linecard.router_slot]={
+            'linecard_type_id': linecard.linecard_type_id,
+            'router_linecard_id': linecard.id
+        }
+
+    # print results
+    print (linecard_list)
+
+    return linecard_list
+
 def router_update(router_id):
     consoleMsg('User requested to UPDATE router with router_id of '+str(router_id))
-    print (request.form)
-
+    
     # Snag current database entries for this router + which linecards are in it, convert to dict of dicts, keyed by router_slot
-    dict_of_cards=rtr_to_lc_dictionary(router_id)
+    current_cards=linecard_list(router_id)
 
     # NEED TO ADD SECTION TO ALLOW FOR UPDATING OF ROUTER NAME AND ROUTER TYPE, WHICH IS ALREADY PASSED IN VIA REQUEST.FORM
 
     # Go through request form, compare to current cards, update/delete as needed
-    for slot in request.form:
-        if 'slot' in slot:
-            new_card=request.form.get(slot, type=int)
+    print ("request form =",request.form)
+    print ("starting to process request form for update")
+    for key,value in request.form.items():
+        if 'slot' in key:
+            slot=int(key[5:])
+            if value == "None":
+                new_linecard_type_id=None
+            else:
+                new_linecard_type_id=int(value)
             print("-"*40)
-            print ("comparing slot number:",slot)
-            print ("new card:",new_card, type(new_card))
+            print ("comparing slot number:",slot, type(slot))
+            print ("new card:",new_linecard_type_id, type(new_linecard_type_id))
             try:
-                old_card=dict_of_cards[slot]['lc_type_id']
+                old_linecard_type_id=current_cards[slot]['linecard_type_id']
             except:
-                old_card=None
-            print ("old card:",old_card, type(old_card))
+                old_linecard_type_id=None
+            print ("old card:",old_linecard_type_id, type(old_linecard_type_id))
 
-            if new_card == old_card:
+            if new_linecard_type_id == old_linecard_type_id:
                 print ("old and new cards are the same, no db updates needed")
-            elif new_card == None:
+            elif new_linecard_type_id == None :
                 print ("need to delete old card")
-                rtr_lc_to_delete=routers_linecards.query.get(dict_of_cards[slot]['router_linecard_id'])
-                print ("rtr_lc_to_delete=",rtr_lc_to_delete)
-                db.session.delete(rtr_lc_to_delete)
+                data=routers_linecards.query.get(current_cards[slot]['router_linecard_id'])
+                print ("router_linecard row to delete =",data)
+                db.session.delete(data)
+                db.session.commit()
+            elif old_linecard_type_id == None: 
+                print ("adding new router_linecard entry")
+                data=routers_linecards(
+                    router_id=router_id,
+                    linecard_type_id=new_linecard_type_id,
+                    router_slot=slot
+                )
+                print (data)
+                db.session.add(data)
                 db.session.commit()
             else:
-                print ("new card and old card are not equal, need to update database")
-                new_linecard=routers_linecards(
-                    router_id=router_id,
-                    linecard_type_id=new_card,
-                    router_slot=int(slot[5:])
-                )
-                print (slot[5:])
-                db.session.add(new_linecard)
+                print ("updating existing router_linecard entry")
+                router_linecard_id=current_cards[slot]['router_linecard_id']
+                print("\n\n router_linecard_id =",router_linecard_id)
+                data=routers_linecards.query.get(router_linecard_id)
+                data.linecard_type_id=new_linecard_type_id
                 db.session.commit()
             
-        # print (key,request.form[key])
+        print (key,request.form[key])
 
     # # Manually deleting a linecard<->router mapping
     # print ("manually deleting id=2")
@@ -288,6 +324,6 @@ def router_update(router_id):
     print ("data = ",data.__dict__)
     rtr_types=router_types.query.all()
     lc_types=linecard_types.query.all()
-    current_cards=rtr_to_lc_dictionary(router_id)
+    current_linecards=linecard_list(router_id)
 
-    return render_template("partial/router_edit.html", router=data,rtr_types=rtr_types,linecard_types=lc_types,current_linecards=dict_of_cards)
+    return render_template("partial/router_edit.html", router=data,rtr_types=rtr_types,linecard_types=lc_types,current_linecards=current_linecards)

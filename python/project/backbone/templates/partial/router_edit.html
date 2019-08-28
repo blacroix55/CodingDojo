@@ -23,15 +23,17 @@
             </thead>
             <tbody>
                 {% for i in range(router.router_type.num_slots) %}
-                {% set slot_num = "slot_"+i|string %}
-                {{slot_num}}
                 <tr>
                     <td>{{i}}</td>
                     <td>
                         <select class='form_control' name='slot_{{i}}'>
-                            <option value='None'>NONE</option>
+                            <option value='None'>NONE</option>                        
                             {% for linecard_type in linecard_types %}
+                            {% if linecard_type.id == current_linecards[i].linecard_type_id %}
+                            <option selected value='{{linecard_type.id}}'>{{linecard_type.model}}</option>
+                            {% else %}
                             <option value='{{linecard_type.id}}'>{{linecard_type.model}}</option>
+                            {% endif %}
                             {% endfor %}
                         </select>
                     </td>
