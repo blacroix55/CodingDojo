@@ -210,20 +210,6 @@ def router_edit(router_id):
 
     return render_template("partial/router_edit.html", router=data,rtr_types=rtr_types,linecard_types=lc_types, current_linecards=current_linecards)
 
-def rtr_to_lc_dictionary(router_id):
-    cur_rtr = routers.query.get(router_id)
-    cur_linecards = cur_rtr.linecards_installed
-    dict_of_cards={}
-    for val in cur_linecards:
-        test=val.__dict__
-        slot="slot_"+str(test["router_slot"])
-        dict_of_cards[slot] = {
-            "lc_type_id": test["linecard_type_id"], 
-            "router_linecard_id": test["id"]
-        }
-    print (dict_of_cards)
-    return dict_of_cards
-
 def linecard_list(router_id):
     # Get current router + current router's installed linecards
     router = routers.query.get(router_id)
@@ -245,7 +231,6 @@ def linecard_list(router_id):
 
     # print results
     print (linecard_list)
-
     return linecard_list
 
 def router_update(router_id):
