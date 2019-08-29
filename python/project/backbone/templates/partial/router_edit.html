@@ -5,18 +5,14 @@
             <input name='router_name' value="{{router.name}}">
             <select class='form_control' function='index' name='router_type_id'>
                 {% for rtr_type in rtr_types %}
-                {% if rtr_type.id == router.router_type.id %}
-                <option selected value='{{rtr_type.id}}'>{{rtr_type.model}}</option>
-                {% else %}
-                <option value='{{rtr_type.id}}'>{{rtr_type.model}}</option>
-                {% endif %}
+                <option {% if rtr_type.id == router.router_type.id %}selected {% endif %}value='{{rtr_type.id}}'>{{rtr_type.model}}</option>
                 {% endfor %}
             </select>
             <button class='form_button' data-url='/router/update/{{router.id}}' type='button'>Update</button> 
         </div>
     </div>
     <div class='col-8'>
-        <table class='table'>
+        <table class='table table-hover'>
             <thead>
                 <th>SLOT</th>
                 <th>Linecard Type</th>
@@ -30,16 +26,12 @@
                         <select class='form_control' name='slot_{{i}}'>
                             <option value='None'>NONE</option>                        
                             {% for linecard_type in linecard_types %}
-                            {% if linecard_type.id == current_linecards[i].linecard_type_id %}
-                            <option selected value='{{linecard_type.id}}'>{{linecard_type.model}}</option>
-                            {% else %}
-                            <option value='{{linecard_type.id}}'>{{linecard_type.model}}</option>
-                            {% endif %}
+                            <option {% if linecard_type.id == current_linecards[i].linecard_type_id %}selected {% endif %}value='{{linecard_type.id}}'>{{linecard_type.model}}</option>
                             {% endfor %}
                         </select>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#interface_{{i}}">Show Interface Data</button>
+                        <button class="mb-1" type="button" data-toggle="collapse" data-target="#interface_{{i}}">Show Interface Data</button>
                         <table class='table-sm collapse' id="interface_{{i}}">
                             <thead>
                                 <tr>
@@ -55,7 +47,7 @@
                                     <td>CFP2</td>
                                     <td>Backbone</td>
                                     <td>
-                                        <button type='button' class='btn btn-info'>Edit</button>
+                                        <button type='button' class='action_button' data-url='/linecard_type/edit/(add_interface_id_here)'>Edit</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -63,7 +55,7 @@
                                     <td>CFP2</td>
                                     <td>Backbone</td>
                                     <td>
-                                        <button type='button' class='btn btn-info'>Edit</button>
+                                        <button type='button' class='action_button' data-url='/linecard_type/edit/(add_interface_id_here)'>Edit</button>
                                     </td>
                                 </tr> 
                                 <tr>
@@ -71,7 +63,7 @@
                                     <td>CFP2</td>
                                     <td>Transit</td>
                                     <td>
-                                        <button type='button' class='btn btn-info'>Edit</button>
+                                        <button type='button' class='action_button' data-url='/linecard_type/edit/(add_interface_id_here)'>Edit</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -79,7 +71,7 @@
                                     <td>CFP2</td>
                                     <td>Public Peering</td>
                                     <td>
-                                        <button type='button' class='btn btn-info'>Edit</button>
+                                        <button type='button' class='action_button' data-url='/linecard_type/edit/(add_interface_id_here)'>Edit</button>
                                     </td>
                                 </tr>
                             </tbody>
