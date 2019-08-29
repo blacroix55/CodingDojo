@@ -20,6 +20,7 @@
             <thead>
                 <th>SLOT</th>
                 <th>Linecard Type</th>
+                <th>Interface</th>
             </thead>
             <tbody>
                 {% for i in range(router.router_type.num_slots) %}
@@ -36,6 +37,54 @@
                             {% endif %}
                             {% endfor %}
                         </select>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#interface_{{i}}">Show Interface Data</button>
+                        <table class='table-sm collapse' id="interface_{{i}}">
+                            <thead>
+                                <tr>
+                                    <th>Int #</th>
+                                    <th>Interface Type</th>
+                                    <th>Interface Profile</th>
+                                    <th>Functions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>0</td>
+                                    <td>CFP2</td>
+                                    <td>Backbone</td>
+                                    <td>
+                                        <button type='button' class='btn btn-info'>Edit</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>CFP2</td>
+                                    <td>Backbone</td>
+                                    <td>
+                                        <button type='button' class='btn btn-info'>Edit</button>
+                                    </td>
+                                </tr> 
+                                <tr>
+                                    <td>2</td>
+                                    <td>CFP2</td>
+                                    <td>Transit</td>
+                                    <td>
+                                        <button type='button' class='btn btn-info'>Edit</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>CFP2</td>
+                                    <td>Public Peering</td>
+                                    <td>
+                                        <button type='button' class='btn btn-info'>Edit</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            
+                        </table>    
                     </td>
                 {% endfor %}
                 </tr>
