@@ -15,21 +15,21 @@ def linecard_list(router_id):
     router = routers.query.get(router_id)
 
     # Build out a blank list-of-dictionaries structure for the current router, based on number of linecard slots available
-    print ("building linecard_list")
     linecard_list=[]
-    for i in range(router.router_type.num_slots):
-        print ('appending list')
+    for i in range(router.router_type.num_slots+10):    
+        # added 10 to num_slots; if a router were downsized, it may still have router linecards in the db.  it would be more
+        # graceful to delete routers_linecards table entries for cards that don't have slots when changing router_type field,
+        # but this is a class project and doesn't have to be perfect, this is quicker, so that's what I'm doing.  :)
         linecard_list.append({})
     
     # Iterate through current linecards, updating the dict entry for the linecard based on it's index
-    print ('iterating through cur_rtr.linecards_installed', router.linecards_installed)
     for linecard in router.linecards_installed:
         linecard_list[linecard.router_slot]={
             'linecard_type_id': linecard.linecard_type_id,
             'router_linecard_id': linecard.id
         }
 
-    # print results
+    # print and return results
     print (linecard_list)
     return linecard_list
 
@@ -234,27 +234,38 @@ def router_delete(router_id):
 def router_edit(router_id):
     consoleMsg('User requested to edit router with router_id of '+str(router_id))
     # Get router data
-    data = routers.query.get(router_id)
+    router = routers.query.get(router_id)
     rtr_types=router_types.query.all()
     lc_types=linecard_types.query.all()
     current_linecards=linecard_list(router_id)
 
-    return render_template("partial/router_edit.html", router=data,rtr_types=rtr_types,linecard_types=lc_types, current_linecards=current_linecards)
+    return render_template("partial/router_edit.html", router=router,rtr_types=rtr_types,linecard_types=lc_types, current_linecards=current_linecards)
 
 def router_update(router_id):
     consoleMsg('User requested to UPDATE router with router_id of '+str(router_id))
     
     # Snag current database entries for this router + which linecards are in it, convert to dict of dicts, keyed by router_slot
+    router = routers.query.get(router_id)
     current_cards=linecard_list(router_id)
 
     # Go through request form, compare to current cards, update/delete as needed
     print ("request form =",request.form)
     print ("starting to process request form for update")
 
-    # NEED TO ADD SECTION TO ALLOW FOR UPDATING OF ROUTER NAME AND ROUTER TYPE, WHICH IS ALREADY PASSED IN VIA REQUEST.FORM
-
     for key,value in request.form.items():
-        if 'slot' in key:
+        if (key == "router_name") and (value != router.name):
+            router.name=value
+            db.session.commit()
+
+        elif (key == "router_type_id"):
+            new_router_type_id=int(value)
+            if new_router_type_id != router.router_type_id:
+                router.router_type_id=new_router_type_id
+                db.session.commit()
+
+                ## NOTE: IF CHANGING TO A SMALLER SIZED LINE CARD, NEED TO HANDLE FEWER ROUTER CARDS.
+
+        elif 'slot' in key:
             slot=int(key[5:])
             if value == "None":
                 new_linecard_type_id=None
