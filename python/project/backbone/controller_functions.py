@@ -7,10 +7,22 @@ from models import *
 # General tools, used throughout the application
 
 def consoleMsg(msg):
+    ''' This function is intended to be used at the beginning of the execution of each router, to make debugging much easier
+    by including 80 asterisks in the beginning to help the eye easily identify the beginning of said function.
+    '''
     print('*'*80)
     print(msg)
 
 def linecard_list(router_id):
+    ''' Accepts an integer that matches with the 'routers' table, 'id' column.  Queries the DB for all info on this router, 
+    then parses the router.linecards_installed field, building a list where the index of the list is the router slot number.
+
+    EXAMPLE:  
+    In the following list, there are four dictionaries representing the four linecard slots in a router.  In this example, 
+    there is NO linecard in slots 0, 2, 3; there is one linecard in slot 1, with a linecard_type_id of 2 and a router_linecard_id
+    value of 8:
+    linecard_list = [ {}, {'linecard_type_id': 2, 'router_linecard_id': 8}, {}, {} ]
+    '''
     # Get current router + current router's installed linecards
     router = routers.query.get(router_id)
 
@@ -18,7 +30,7 @@ def linecard_list(router_id):
     linecard_list=[]
     for i in range(router.router_type.num_slots+10):    
         # added 10 to num_slots; if a router were downsized, it may still have router linecards in the db.  it would be more
-        # graceful to delete routers_linecards table entries for cards that don't have slots when changing router_type field,
+        # graceful to delete linecards table entries for cards that don't have slots when changing router_type field,
         # but this is a class project and doesn't have to be perfect, this is quicker, so that's what I'm doing.  :)
         linecard_list.append({})
     
@@ -26,7 +38,9 @@ def linecard_list(router_id):
     for linecard in router.linecards_installed:
         linecard_list[linecard.router_slot]={
             'linecard_type_id': linecard.linecard_type_id,
-            'router_linecard_id': linecard.id
+            'router_linecard_id': linecard.id,
+            'num_ports': linecard.linecard_type.num_ports,
+            'sql_data': linecard
         }
 
     # print and return results
@@ -234,12 +248,14 @@ def router_delete(router_id):
 def router_edit(router_id):
     consoleMsg('User requested to edit router with router_id of '+str(router_id))
     # Get router data
-    router = routers.query.get(router_id)
+    data = routers.query.get(router_id)
     rtr_types=router_types.query.all()
     lc_types=linecard_types.query.all()
+    int_types=interface_types.query.all()
     current_linecards=linecard_list(router_id)
+    int_profiles=int_profile_types.query.all()
 
-    return render_template("partial/router_edit.html", router=router,rtr_types=rtr_types,linecard_types=lc_types, current_linecards=current_linecards)
+    return render_template("partial/router_edit.html", router=data,rtr_types=rtr_types,linecard_types=lc_types,current_linecards=current_linecards, interface_types=int_types, int_profiles=int_profiles)
 
 def router_update(router_id):
     consoleMsg('User requested to UPDATE router with router_id of '+str(router_id))
@@ -284,13 +300,13 @@ def router_update(router_id):
                 print ("old and new cards are the same, no db updates needed")
             elif new_linecard_type_id == None :
                 print ("need to delete old card")
-                data=routers_linecards.query.get(current_cards[slot]['router_linecard_id'])
+                data=linecards.query.get(current_cards[slot]['router_linecard_id'])
                 print ("router_linecard row to delete =",data)
                 db.session.delete(data)
                 db.session.commit()
             elif old_linecard_type_id == None: 
                 print ("adding new router_linecard entry")
-                data=routers_linecards(
+                data=linecards(
                     router_id=router_id,
                     linecard_type_id=new_linecard_type_id,
                     router_slot=slot
@@ -302,7 +318,7 @@ def router_update(router_id):
                 print ("updating existing router_linecard entry")
                 router_linecard_id=current_cards[slot]['router_linecard_id']
                 print("\n\n router_linecard_id =",router_linecard_id)
-                data=routers_linecards.query.get(router_linecard_id)
+                data=linecards.query.get(router_linecard_id)
                 data.linecard_type_id=new_linecard_type_id
                 db.session.commit()
             
@@ -311,6 +327,9 @@ def router_update(router_id):
     print ("data = ",data.__dict__)
     rtr_types=router_types.query.all()
     lc_types=linecard_types.query.all()
+    int_types=interface_types.query.all()
+    int_profiles=int_profile_types.query.all()
     current_linecards=linecard_list(router_id)
 
-    return render_template("partial/router_edit.html", router=data,rtr_types=rtr_types,linecard_types=lc_types,current_linecards=current_linecards)
+
+    return render_template("partial/router_edit.html", router=data,rtr_types=rtr_types,linecard_types=lc_types,current_linecards=current_linecards, interface_types=int_types, int_profiles=int_profiles)

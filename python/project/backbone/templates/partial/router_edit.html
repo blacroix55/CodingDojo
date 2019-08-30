@@ -1,28 +1,33 @@
-<form id='new_device_type' class="row" method="POST">
-    <div class='col-4'>
-        <div class='row p-2'>
-            <h6>Edit Router: {{router.name}}</h6>
-            <input name='router_name' value="{{router.name}}">
-            <select class='form_control' function='index' name='router_type_id'>
-                {% for rtr_type in rtr_types %}
-                <option {% if rtr_type.id == router.router_type.id %}selected {% endif %}value='{{rtr_type.id}}'>{{rtr_type.model}}</option>
-                {% endfor %}
-            </select>
-            <button class='form_button' data-url='/router/update/{{router.id}}' type='button'>Update</button> 
-        </div>
+<form id='new_device_type' class="w-100" method="POST">
+    <div class = "row">
+        <h4 class= "text-centered">Edit Router: {{router.name}}</h4>
     </div>
-    <div class='col-8'>
+    <div class = "row">
+        <input name='router_name' value="{{router.name}}">
+        <select class='form_control' function='index' name='router_type_id'>
+            {% for rtr_type in rtr_types %}
+            <option {% if rtr_type.id == router.router_type.id %}selected {% endif %}value='{{rtr_type.id}}'>{{rtr_type.model}}</option>
+            {% endfor %}
+        </select>
+        <button class='form_button' data-url='/router/update/{{router.id}}' type='button'>Update</button> 
+    </div>
+    <div class = "row">
         <table class='table table-hover'>
             <thead>
                 <th>SLOT</th>
                 <th>Linecard Type</th>
-                <th>Interface</th>
+                <th>Functions</th>
+                <th>Int#</th>
+                <th>Interface Type</th>
+                <th>Interface Profile</th>
+                <th>IPv4 Address</th>
+                <th>Comment</th>
             </thead>
             <tbody>
                 {% for i in range(router.router_type.num_slots) %}
                 <tr>
-                    <td>{{i}}</td>
-                    <td>
+                    <td rowspan={{current_linecards[i].num_ports}}>{{i}}</td>
+                    <td rowspan={{current_linecards[i].num_ports}}>
                         <select class='form_control' name='slot_{{i}}'>
                             <option value='None'>NONE</option>                        
                             {% for linecard_type in linecard_types %}
@@ -30,56 +35,43 @@
                             {% endfor %}
                         </select>
                     </td>
-                    <td>
-                        <button class="mb-1" type="button" data-toggle="collapse" data-target="#interface_{{i}}">Show Interface Data</button>
-                        <table class='table-sm collapse' id="interface_{{i}}">
-                            <thead>
-                                <tr>
-                                    <th>Int #</th>
-                                    <th>Interface Type</th>
-                                    <th>Interface Profile</th>
-                                    <th>Functions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>0</td>
-                                    <td>CFP2</td>
-                                    <td>Backbone</td>
-                                    <td>
-                                        <button type='button' class='action_button' data-url='/linecard_type/edit/(add_interface_id_here)'>Edit</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>CFP2</td>
-                                    <td>Backbone</td>
-                                    <td>
-                                        <button type='button' class='action_button' data-url='/linecard_type/edit/(add_interface_id_here)'>Edit</button>
-                                    </td>
-                                </tr> 
-                                <tr>
-                                    <td>2</td>
-                                    <td>CFP2</td>
-                                    <td>Transit</td>
-                                    <td>
-                                        <button type='button' class='action_button' data-url='/linecard_type/edit/(add_interface_id_here)'>Edit</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>CFP2</td>
-                                    <td>Public Peering</td>
-                                    <td>
-                                        <button type='button' class='action_button' data-url='/linecard_type/edit/(add_interface_id_here)'>Edit</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            
-                        </table>    
+                    {% if current_linecards[i].linecard_type_id is not defined %}
+                    <td>n/a</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                    {% else %}
+                    <td rowspan={{current_linecards[i].num_ports}}>
+                        <button type='button' class='action_button' data-url='/linecards/edit/{{current_linecards[i].router_linecard_id}}'>Edit</button>
                     </td>
-                {% endfor %}
+                    {% for port in range(current_linecards[i].num_ports) %}
+                    {% if port != 0 %}
+                    <tr>
+                    {% endif %}
+                        <td>{{port}}</td>
+                        <td>
+                            <select class='form_control' name='test'>
+                            {% for interface_type in interface_types %}
+                                <option value="{{interface_type.id}}">{{interface_type.description}}</option>                      
+                            {% endfor %}
+                            </select>
+                        </td>
+                        <td>
+                            <select class='form_control' name='test'>
+                            {% for int_profile in int_profiles %}
+                                <option value="{{int_profile.id}}">{{int_profile.description}}</option>                      
+                            {% endfor %}
+                            </select>
+                        </td>
+                        <td>192.168.0.0/24</td>
+                        <td>Coment blah blah</td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %} 
                 </tr>
+                {% endfor %}
+               
             </tbody>
         </table>
         </ul>    
