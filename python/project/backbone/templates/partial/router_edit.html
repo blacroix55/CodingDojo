@@ -51,21 +51,25 @@
                     {% endif %}
                         <td>{{port}}</td>
                         <td>
-                            <select class='form_control' name='test'>
+                            <select class='form_control' name='interface_type_{{i}}/{{port}}''>
                             {% for interface_type in interface_types %}
                                 <option value="{{interface_type.id}}">{{interface_type.description}}</option>                      
                             {% endfor %}
                             </select>
                         </td>
                         <td>
-                            <select class='form_control' name='test'>
+                            <select class='form_control' name='interface_profile_{{i}}/{{port}}'>
                             {% for int_profile in int_profiles %}
                                 <option value="{{int_profile.id}}">{{int_profile.description}}</option>                      
                             {% endfor %}
                             </select>
                         </td>
-                        <td>192.168.0.0/24</td>
-                        <td>Coment blah blah</td>
+                        <td>
+                            <input name='interface_name_{{i}}/{{port}}' value="{{router.name}}">192.168.0.0/24
+                        </td>
+                        <td>
+                            Coment blah blah
+                        </td>
                     </tr>
                     {% endfor %}
                     {% endif %} 
