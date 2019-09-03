@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>javascript assignments</title>
+    <script>
+        // // push front
+        // myArr= [5,6,7]
+        // console.log ('push front, beginning array ='+myArr)
+        // for (var i=(myArr.length); i>0 ;i--)
+        //     myArr[i]=myArr[i-1]
+        // myArr[0]=4
+        // console.log ('added 4 to beginning; new arr='+myArr)
+
+        // insert at
+        // function insertAt(arr,idx,val) {
+        //     for (var i=arr.length; i> idx; i--) {
+        //         arr[i]=myArr[i-1]
+        //     }   
+        //     console.log ("before adding val at idx, "+arr)
+        //     arr[idx]=val
+        //     return arr
+        // }
+        // myArr=[1,2,3]
+        // console.log("original arr="+myArr)
+        // newArr=insertAt(myArr,1,4)
+        // console.log("command insertAt(myArr,1,4) new arr="+newArr)
+
+        // remove at
+        // function removeAt(arr,idx) {
+        //     for (var i=idx; i<(arr.length-1); i++) {
+        //         arr[idx]=arr[idx+1]
+        //     }
+        //     arr.pop()
+        //     return arr
+        // }
+        // arr=[1,2,3,4]
+        // console.log("original array ="+arr)
+        // arr=removeAt(arr,2)
+        // console.log("after removeAt(arr,2) ="+arr)
+
+        // // swapPairs
+        // function swapPairs(arr) {
+        //     for (var i=0; i<((arr.length-1)/2); i++) {
+        //         console.log ("i= "+i+" -- swapping "+arr[i] + "and "+ arr[arr.length-(i+1)])
+        //         temp = arr[i]
+        //         arr[i]=arr[arr.length-(i+1)]
+        //         arr[arr.length-(i+1)]=temp
+        //     }
+        //     return arr
+        // }
+        // arr=[1,2,3,4]
+        // console.log(swapPairs(arr))
+
+        // removeDupes
+        function removeDupes(arr) {
+            var goodIdx=0
+            var dupes=0
+            for (var i = 1; i<arr.length; i++) {
+                if (arr[goodIdx] != arr[i]) {
+                    // Does not match, copy non-dupe to goodIdx+1 then update goodIdx on.
+                    arr[goodIdx+1]=arr[i]
+                    goodIdx++
+                }
+                else {
+                    // Does match, increase dupes counter
+                    dupes++
+                    console.log ("dupe of "+arr[i])
+                }
+            }
+            for (var i=0; i<dupes; i++) {
+                arr.pop()
+            }
+            return arr
+        }
+        arr=['aaron','aaron','aaron','brian','brian','charles','charles','fred']
+        console.log("Original array="+arr)
+        console.log(removeDupes(arr))
+
+
+    </script> 
+<body>
+    
+</body>
+</html>
