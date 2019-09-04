@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Arrays - To do 3</title>
+    <script>
+        // removeNegatives
+        // function removeNegatives(arr) {
+        //     for (var i=0; i<arr.length; i++) {
+        //         if (arr[i]<0) {
+        //             for (var j=i+1; j<arr.length; j++) {
+        //                 arr[j-1]=arr[j]
+        //             }
+        //             arr.pop()
+        //             i--
+        //         }
+        //     }
+        //     return arr
+        // }
+        // arr=[-1,5,6,-1,-2,3,4,-1]
+        // console.log(removeNegatives(arr))
+
+        // // secondToLast
+        // function secondToLast(arr) {
+        //     if (arr.length<2) {
+        //         return null
+        //     }
+        //     return arr[arr.length-2]
+        // }
+        // arr=[42,true,4,"Kate",7]
+        // console.log(secondToLast(arr))
+
+        // // secondLargest
+        // function secondLargest(arr) {
+        //     if (arr.length<2) {
+        //         return null
+        //     }
+        //     l1=null
+        //     l2=null
+        //     for (var i=0; i<arr.length; i++) {
+        //         if (arr[i]>l1) {
+        //             console.log ('found largest, '+arr[i])
+        //             l2=l1
+        //             l1=arr[i]
+        //         }
+        //         else if (arr[i]>l2) {
+        //             console.log ('found second largest, '+arr[i])
+        //             l2=arr[i]
+        //         }
+        //     }
+        //     return l2
+        // }
+        // arr=[42,1,4,Math.PI,7]
+        // console.log(secondLargest(arr))
+
+        // nthToLast
+        function nthToLast(arr,nth) {
+            if (arr.length<nth) {
+                return null
+            }
+            return arr[arr.length-nth]
+        }
+        arr=[5,2,3,6,4,9,7]
+        console.log(nthToLast(arr,3))
+
+        // nthLargest
+        function nthToLargest(arr,nth) {
+            if (arr.length<nth) {
+                return null
+            }
+
+            // simple bubblesort (inefficient, I know... but easy!)
+            for (var i=0; i<arr.length-1; i++) {
+                change=false
+                for (var j=0; j<arr.length-(i+1); j++) {
+                    if (arr[j] > arr[j+1]) {
+                        change=true
+                        temp=arr[j]
+                        arr[j]=arr[j+1]
+                        arr[j+1]=temp
+                    }
+                }
+                if (change==false) {
+                    break
+                }
+            }
+
+            // Now that the array is sorted, return the nth largest
+            return arr[arr.length-nth]
+        }
+        arr=[5,1,2,3,6,4,9,7,8]
+        console.log(nthToLargest(arr,1))
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
