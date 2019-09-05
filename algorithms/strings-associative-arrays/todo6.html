@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Strings and Associative Arrays - To Do 6</title>
+    <script>
+    // // zip arrays into map
+    // function dict(keys,values) {
+    //     dict={}
+    //     for (i=0; i<keys.length; i++) {
+    //         dict[keys[i]]=values[i]
+    //     }
+    //     return dict
+    // }
+    // arr1 = ["abc", 3, "yo"] // keys
+    // arr2 = [42, "wassup", true]  //values
+    // map=dict(arr1,arr2)  // return {"abc": 42, 3: "wassup", "yo": true}
+    // console.log(map)
+    
+
+
+    // // invert hash
+    // function invertHash(input) {
+    //     output={}
+    //     for (var key in input) {
+    //         value=input[key]
+    //         output[value]=key
+    //     }
+
+    //     return output
+    // }
+    // input={"name": "Zaphod", "charm": "high", "morals": "dicey"}
+    // console.log(input)
+    // console.log(invertHash(input))  // return {"Zaphod": "name", "high":"charm", "dicey": "morals"}
+
+    //number of values
+    function numOfValues(assArray) {
+        i=0
+        for (var key in assArray) {
+            i++
+        }
+        return i
+    }
+    var assArray={ band: "Travis Shredd & the Good Ol’ Homeboys", style: "Country/Metal/Rap", album: "668: The Neighbor of the Beast" }
+    console.log(numOfValues(assArray))  // return 3
+
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
