@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>strings and associative strings, to do 1</title>
+    <script>
+        // // remove blanks
+        // function removeBlanks(arr) {
+        //     arr=arr.split("")
+        //     console.log(arr)
+        //     arr2=[]
+        //     for (var i=0; i<arr.length; i++) {
+        //         if (arr[i] != " ") {
+        //             arr2.push(arr[i])
+        //         }
+        //     }
+        //     arr2=arr2.join("")
+        //     return arr2
+        // }
+        // arr=" Pl ayTha tF u nkyM usi c "
+        // console.log(removeBlanks(arr))
+
+        // // get digits
+        // function getDigits(str) {
+        //     var a=str.split('')
+        //     console.log(a)
+        //     b=[]
+        //     for (i=0; i<a.length; i++) {
+        //         if (!isNaN(Number.parseInt(a[i]))) {
+        //             console.log ((a[i])+" is a number")
+        //             b.push(a[i])
+        //         }
+        //         else {
+        //             console.log ((a[i])+" is NOT a number")
+        //         }
+        //     }
+        //     b=b.join("")
+        //     return b
+        // }
+        // a="Os1a3y5w7h9a2t4?6!8?0"
+        // b=getDigits(a)
+        // console.log(a,b)  // 1357924680
+
+        // acronyms
+        // function acronyms(input) {
+        //     var a=input.split(" ")
+        //     console.log(a)
+        //     var b=[]
+        //     for (var i=0; i<a.length; i++) {
+        //         b.push(a[i][0])
+        //     }
+        //     var c=b.join("")
+
+        //     console.log(c.toUpperCase())
+        // }
+        // input=" there's no free lunch - gotta pay yer way. " // output="TNFL-GPYW"
+        // acronyms(input)
+
+        // input="Live from New York, it's Saturday Night!" // output="LFNYISN
+        // acronyms(input)
+
+        // // count non-spaces
+        // function count(input){
+        //     var a=input.split("")
+        //     num=0
+        //     for (var i=0; i<a.length; i++) {
+        //         if (a[i]!=" ") {
+        //             num++
+        //         }
+        //     }
+        //     console.log(num)
+        //     return num
+        // }
+        // var a="Honey pie, you are driving me crazy" //return 29 (not 35).
+        // var b=count(a)
+        // console.log(a,b)
+
+        // remove shorter strings
+        function removeShorter(arr,num) {
+            var arr=arr.split(" ")
+            console.log("input = "+arr)
+            output=[]
+            for (var i=0; i<arr.length; i++) {
+                if (arr[i].length>=num) {
+                    output.push(arr[i])
+                }
+            }
+            output=output.join(" ")
+            return output
+        }
+        var a="this is a stupid array"
+        b=removeShorter(a,4)
+        console.log("output = "+b)
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
