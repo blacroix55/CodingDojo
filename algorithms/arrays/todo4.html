@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>arrays-to do 4</title>
+    <script>
+        // // shuffle
+        // function shuffle(arr) {
+        //     if (arr.length<2) {
+        //         return "ERROR: array must contain at least 2 elements"
+        //     }
+        //     for (var i=0; i <arr.length ; i++) {
+        //         a=Math.floor(Math.random()*arr.length)
+        //         b=Math.floor(Math.random()*arr.length)
+        //         console.log("a and b are: "+a+","+b)
+        //         while ( a==b ) {
+        //             b=Math.floor(Math.random()*arr.length)
+        //             console.log("b regenerated to "+b)
+        //         }
+        //         temp=arr[a]
+        //         arr[a]=arr[b]
+        //         arr[b]=temp   
+        //     }
+        //     return arr
+        // }
+        // arr=[1,2,3,4,5,6,7,8,9]
+        // console.log(shuffle(arr))
+
+
+        // // remove range
+        // function removeRange(arr,startIndex,endIndex) {
+        //     for (var i=startIndex; i<=endIndex; i++) {
+        //         for (var j=startIndex; j<arr.length; j++) {
+        //             arr[j]=arr[j+1]
+        //         }
+        //         console.log("iteration "+i+", arr="+arr)
+        //     }
+        //     for (var i=0; i<=(endIndex-startIndex); i++) {
+        //         arr.pop()
+        //     }
+        //     return arr
+        // }
+        // arr=[20,30,40,50,60,70]
+        // console.log(removeRange(arr,2,4))
+
+        // // intermediate sums
+        // function intermediateSums(arr) {
+        //     // make sums list of each grouping of 10, iterate through array, add to sums accordingly
+        //     var sums=[]
+        //     var sum=0
+        //     for (var i = 0; i < arr.length; i++) {
+        //         if ((i+1)%10 == 0) {
+        //             console.log ("tenth value! index = "+i+"; sum = "+sum)
+        //             sums.push(sum)
+        //             sum=arr[i]
+        //         }
+        //         else {
+        //             console.log ("at index "+i+", adding "+arr[i]+" to sum of "+sum)
+        //             sum= sum + arr[i]
+        //             console.log (arr[i],sum)
+
+        //             // if last value, add sum to sums
+        //             if (i==arr.length-1) {
+        //                 console.log ("last value at index "+i)
+        //                 sums.push(sum)
+        //             }
+        //         }
+        //     }
+        //     return sums
+        // }   
+        // arr=[1,2,1,2,1,2,1,2,1,2,1,2,1,2]
+        // sums=intermediateSums(arr)
+        // console.log(arr, sums)
+
+        // // double trouble
+        // function doubleTrouble(arr) {
+        //     for (i=arr.length-1; i>=0; i--) {
+        //         arr[i*2]= arr[i]
+        //         arr[i*2+1]= arr[i]
+        //     }
+        //     return arr
+        // }
+        // arr= [4,"Ulysses",42,false]
+        // arr=doubleTrouble(arr)
+        // console.log(arr)
+
+
+        // zip it
+        function zipIt(arr1,arr2) {
+            var maxLen=Math.max(arr1.length,arr2.length)
+            arr3=[]
+            for (i=0; i<maxLen; i++) {
+                if (i<arr1.length) {
+                    console.log ("pushing from array 1")
+                    arr3.push(arr1[i])
+                }
+                if (i<arr2.length) {
+                    console.log ("pushing from array 2")
+                    arr3.push(arr2[i])
+                }
+            }            
+            return arr3
+        }
+        x=[1,2]
+        y=[10,20,30,40]
+        z=zipIt(x,y)
+        console.log(z)
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
