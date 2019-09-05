@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Strings and Associative Arrays - To Do 3</title>
+    <script>
+    // // parens valid
+    // function validParen(str) {
+    //     var num=0
+    //     str=str.split("")
+    //     valid=true
+    //     for (i=0; i<str.length; i++) {
+    //         if (str[i]=="(") {
+    //             num++
+    //         }
+    //         else if (str[i]==")") {
+    //             num--
+    //         }
+    //         if (num<0) {
+    //             valid=false
+    //             break
+    //         }
+    //     }
+    //     if (num>0) {
+    //         valid=false
+    //     }
+    //     return valid
+    // }
+    // var str="Y(3(p)p(3)r)s" // return true. 
+    // console.log(validParen(str))
+    // var str="N(0(p)3" // return false: not every parenthesis is closed. 
+    // console.log(validParen(str))
+    // var str="N(0)t )0(k" // return false, because the underlined ")"
+    // console.log(validParen(str))
+
+    
+    // braces valid
+    
+
+    "W(a{t}s[o(n{ c}o)m]e )h[e{r}e]!" //=> true. 
+    "D(i{a}l[ t]o)n{e" //=> false. last brace is left open
+    "A(1)s[O (n]0{t) 0}k" //=> false - mismatched 
+
+    // is palindrome
+    function isPalindrome(str) {
+        var str=str.split("")
+        var test=true
+        var i=0
+        while (test=true) {
+            if ( str[i]!=str[str.length-(i+1)] ) {
+                test=false
+            }
+            i++
+            if (i>str.length/2) {
+                break
+            }
+        }
+        return test
+    }
+
+    function removeBlanks(str) {
+        var arr=str.split("")
+        var arr2=[]
+        for (var i=0; i<arr.length; i++) {
+            if (arr[i] != " ") {
+                arr2.push(arr[i])
+            }
+        }
+        arr2=arr2.join("")
+        return arr2
+    }
+
+    // STRICT EXAMPLES:
+    a="a x a" 
+    console.log(isPalindrome(a))
+    a="racecar"
+    console.log(isPalindrome(a))
+    a="race car"
+    console.log(isPalindrome(a))
+
+    // NON-STRICT (ignores spaces)
+    console.log(isPalindrome(removeBlanks(a)))
+
+
+
+    // longest palindrome
+
+    //ummm... yeah, not quite sure how to even begin with this one...
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
