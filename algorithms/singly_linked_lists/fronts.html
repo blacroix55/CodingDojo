@@ -80,6 +80,41 @@
                 }
                 return myList
             }
+            min() {
+                var current=this.head
+                var len=0
+                var min=current.value
+                while (current) {
+                    if (current.value<min) {
+                        min=current.value
+                    }
+                    current=current.next
+                }
+                return min
+            }
+            max() {
+                var current=this.head
+                var max=current.value
+                while (current) {
+                    if (current.value>max) {
+                        max=current.value
+                    }
+                    current=current.next
+                }
+                return max
+            }
+            avg() {
+                var current=this.head
+                var len=0
+                var total=0
+                while (current) {
+                    len++
+                    total=total+current.value
+                    current=current.next
+                }
+                var avg=total/len
+                return avg
+            }
         }
         
         
@@ -103,6 +138,11 @@
 
         // display the list as an actual [list]
         console.log(list.display())
+
+        console.log("minimum is "+list.min())
+        console.log("maximum is "+list.max())
+        console.log("average is "+list.avg())
+
 
     </script>
 </head>
