@@ -53,13 +53,23 @@
                 var current=this.head
                 var contains=false
                 while (current) {
-                    console.log ("current.value="+current.value)
+                    // console.log ("current.value="+current.value)
                     if (current.value==value) {
                         contains=true
                     }
                     current=current.next
                 }
                 return contains
+            }
+            length() {
+                // count the length of this singly linked list
+                var current=this.head
+                var len=0
+                while (current) {
+                    len++
+                    current=current.next
+                }
+                return len
             }
         }
         
@@ -68,19 +78,20 @@
         // initialize the singly linked list
         const list=new SList()
 
-        list.addFront(1).addFront(2).addFront(3) // requires the "return this" line in the addFront method to chain like this
+        list.addFront(1).addFront(2).addFront(3)
         list.addFront(4)
-        list.addFront(5)
-        // list.addFront(4)
-        // list.addFront(5)
-        // list.removeFront().removeFront()
-        // console.log(list.front())
+        list.addFront(5)    // 5,4,3,2,1
+        list.removeFront()  // 4,3,2,1 (5 was removed)
+
+        // 6 does not exist, return false
         console.log(list.contains(6))
-        
-        console.log (list)
 
+        //4 does exist, return true
+        console.log(list.contains(4))
 
-
+        //4 does exist, return true
+        console.log(list.length())
+        console.log(list)
 
     </script>
 </head>
