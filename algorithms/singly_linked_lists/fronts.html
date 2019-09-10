@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Singly Linked Lists - Fronts Assignment</title>
+    <script>
+        // class for nodes 
+        class Node {
+            constructor(value)  {
+                this.value = value;
+                this.next = null;
+            }
+        }
+
+        // function to create a blank list.
+        class SList {
+            constructor() {
+                this.head=null;
+            }
+            addFront(value) {
+                // Create a new node (note: not assigned to our singly list 'chain' yet)
+                const node= new Node(value)
+
+                // take current head (initial node in list), push it to next node; then put this node at the head of the line
+                node.next=this.head
+                this.head=node   
+                
+                // return this to allow method chaining
+                return this
+            }
+            removeFront() {
+                const current = this.head
+
+                // if current (this.head) exists (aka if there's a starting pointer in the list, meaning if there's actually data - remove it)
+                if (current) {
+                    this.head=current.next
+                } else {
+                    console.log ('not a node, doing nothing')
+                }
+
+                // return this to allow method chaining
+                return this
+            }
+            front() {
+                // display the initial value
+                const current=this.head
+                return current.value
+            }
+        }
+        
+        
+
+        // initialize the singly linked list
+        const list=new SList()
+
+        list.addFront(1).addFront(2).addFront(3) // requires the "return this" line in the addFront method to chain like this
+        // list.addFront(2)
+        // list.addFront(3)
+        // list.addFront(4)
+        // list.addFront(5)
+        list.removeFront().removeFront()
+        console.log(list.front())
+       
+        
+        console.log (list)
+
+
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
