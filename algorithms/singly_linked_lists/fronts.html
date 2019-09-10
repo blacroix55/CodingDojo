@@ -115,6 +115,44 @@
                 var avg=total/len
                 return avg
             }
+            back() {
+                // returns the last value in a linked list
+                var current=this.head
+                while (current) {
+                    if (!current.next) {
+                        var last=current.value
+                    }
+                    current=current.next
+                }
+                return last
+            }
+            addBack(value) {
+                var newNode = new Node(value)
+
+                var current=this.head
+                while (current) {
+                    if (!current.next) {
+                        current.next=newNode
+                        break
+                    }
+                    current=current.next
+                }
+                return this
+            }
+            removeBack() {
+                // removes the last node in a s-linked list
+                var current=this.head
+                while (current) {
+                    if (current.next.next == null) {
+                        console.log ("last value was "+current.next.value+", new last value is "+current.value)
+                        current.next=null
+                        break
+                    } else {
+                        current=current.next
+                    }
+                }
+                return this
+            }
         }
         
         
@@ -142,6 +180,24 @@
         console.log("minimum is "+list.min())
         console.log("maximum is "+list.max())
         console.log("average is "+list.avg())
+
+        console.log("last value is "+list.back())
+
+        list.removeBack()
+        console.log(list.display())
+
+        list.removeBack()
+        console.log(list.display())
+
+        list.addBack(11)
+        console.log(list.display())
+
+        list.addBack(22)
+        console.log(list.display())
+
+        list.addBack(33)
+        console.log(list.display())
+
 
 
     </script>
