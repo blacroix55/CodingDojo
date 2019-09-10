@@ -48,6 +48,19 @@
                 const current=this.head
                 return current.value
             }
+            contains(value) {
+                // if value found, return true; otherwise, return false
+                var current=this.head
+                var contains=false
+                while (current) {
+                    console.log ("current.value="+current.value)
+                    if (current.value==value) {
+                        contains=true
+                    }
+                    current=current.next
+                }
+                return contains
+            }
         }
         
         
@@ -56,13 +69,13 @@
         const list=new SList()
 
         list.addFront(1).addFront(2).addFront(3) // requires the "return this" line in the addFront method to chain like this
-        // list.addFront(2)
-        // list.addFront(3)
+        list.addFront(4)
+        list.addFront(5)
         // list.addFront(4)
         // list.addFront(5)
-        list.removeFront().removeFront()
-        console.log(list.front())
-       
+        // list.removeFront().removeFront()
+        // console.log(list.front())
+        console.log(list.contains(6))
         
         console.log (list)
 
