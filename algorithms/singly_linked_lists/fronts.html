@@ -71,6 +71,15 @@
                 }
                 return len
             }
+            display() {
+                var myList=[]
+                var current=this.head
+                while (current) {
+                    myList.push(current.value)
+                    current=current.next
+                }
+                return myList
+            }
         }
         
         
@@ -91,7 +100,9 @@
 
         //4 does exist, return true
         console.log(list.length())
-        console.log(list)
+
+        // display the list as an actual [list]
+        console.log(list.display())
 
     </script>
 </head>
