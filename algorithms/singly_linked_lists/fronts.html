@@ -20,35 +20,40 @@
                 this.head=null;
             }
             addFront(value) {
+                console.log ("addFront initiated")
                 // Create a new node (note: not assigned to our singly list 'chain' yet)
                 const node= new Node(value)
-
                 // take current head (initial node in list), push it to next node; then put this node at the head of the line
                 node.next=this.head
                 this.head=node   
+                console.log(list.display())
                 
                 // return this to allow method chaining
                 return this
             }
             removeFront() {
+                console.log ("removeFront initiated")
                 const current = this.head
-
                 // if current (this.head) exists (aka if there's a starting pointer in the list, meaning if there's actually data - remove it)
                 if (current) {
                     this.head=current.next
                 } else {
                     console.log ('not a node, doing nothing')
                 }
-
+                console.log(list.display())
                 // return this to allow method chaining
                 return this
             }
             front() {
+                console.log ("front initiated")
                 // display the initial value
                 const current=this.head
+                console.log(list.display())
+
                 return current.value
             }
             contains(value) {
+                console.log ("contains initiated")
                 // if value found, return true; otherwise, return false
                 var current=this.head
                 var contains=false
@@ -59,19 +64,26 @@
                     }
                     current=current.next
                 }
+                console.log(list.display())
+
                 return contains
             }
             length() {
+                console.log ("length initiated")
                 // count the length of this singly linked list
+                console.log ("length initiated")
                 var current=this.head
                 var len=0
                 while (current) {
                     len++
                     current=current.next
                 }
+                console.log(list.display())
+
                 return len
             }
             display() {
+                console.log ("display initiated")
                 var myList=[]
                 var current=this.head
                 while (current) {
@@ -81,6 +93,7 @@
                 return myList
             }
             min() {
+                console.log ("min initiated")
                 var current=this.head
                 var len=0
                 var min=current.value
@@ -93,6 +106,7 @@
                 return min
             }
             max() {
+                console.log ("max initiated")
                 var current=this.head
                 var max=current.value
                 while (current) {
@@ -104,6 +118,7 @@
                 return max
             }
             avg() {
+                console.log ("avg initiated")
                 var current=this.head
                 var len=0
                 var total=0
@@ -116,6 +131,7 @@
                 return avg
             }
             back() {
+                console.log ("back initiated")
                 // returns the last value in a linked list
                 var current=this.head
                 while (current) {
@@ -127,6 +143,7 @@
                 return last
             }
             addBack(value) {
+                console.log ("addBack initiated")
                 var newNode = new Node(value)
 
                 var current=this.head
@@ -137,9 +154,12 @@
                     }
                     current=current.next
                 }
+                console.log(list.display())
+
                 return this
             }
             removeBack() {
+                console.log ("removeBack initiated")
                 // removes the last node in a s-linked list
                 var current=this.head
                 while (current) {
@@ -151,6 +171,81 @@
                         current=current.next
                     }
                 }
+                console.log(list.display())
+
+                return this
+            }
+            prependVal(value,before) {
+                console.log ("prependVal initiated")
+                var current=this.head
+                const newNode= new Node(value)
+
+                while (current) {
+                    console.log("iterating "+current)
+                    if (current.next==null) {
+                        console.log("did not find value "+before+" in list")
+                        return this
+                    }
+                    else if (current.next.value == before) {
+                        console.log ("match!")
+                        newNode.next=current.next
+                        current.next=newNode
+                        console.log(list.display())
+                        return this
+                    }
+                    current=current.next
+                }
+                return this
+            }
+            appendVal(value,after) {
+                console.log ("appendVal initiated")
+                var current=this.head
+                const newNode= new Node(value)
+
+                while (current) {
+                    console.log("iterating "+current)
+                    
+                    if (current.value == after) {
+                        console.log ("match!")
+                        newNode.next=current.next
+                        current.next=newNode
+                        console.log(list.display())
+                        return this
+                    }
+                    if (current.next==null) {
+                        console.log("did not find value "+after+" in list")
+                        return this
+                    }
+
+                    current=current.next
+                }
+                return this
+            }
+            removeVal(list,value) {
+                console.log ("removeVal initiated")
+                var current=this.head
+                
+                // if first matches, update head - then return
+                if (current.value == value) {
+                    console.log ("matched on list.head")
+                    list.head = current.next
+                    console.log(list.display())
+                    return this
+                }
+
+                while (current) {
+                    if ( current.next == null) {
+                        console.log ("did not find a match, no removeal occurred")
+                    } 
+                    if ( current.next.value == value ) {
+                        console.log("matched (non-head)")
+                        current.next = current.next.next
+                        console.log(list.display())
+                        return this
+                    }
+                    current=current.next
+                }
+                console.log(list.display())
                 return this
             }
         }
@@ -166,37 +261,30 @@
         list.removeFront()  // 4,3,2,1 (5 was removed)
 
         // 6 does not exist, return false
-        console.log(list.contains(6))
+        list.contains(6)
 
         //4 does exist, return true
-        console.log(list.contains(4))
+        list.contains(4)
 
         //4 does exist, return true
-        console.log(list.length())
+        list.length()
 
         // display the list as an actual [list]
-        console.log(list.display())
+        list.display()
 
         console.log("minimum is "+list.min())
         console.log("maximum is "+list.max())
         console.log("average is "+list.avg())
-
         console.log("last value is "+list.back())
 
         list.removeBack()
-        console.log(list.display())
-
         list.removeBack()
-        console.log(list.display())
-
         list.addBack(11)
-        console.log(list.display())
-
         list.addBack(22)
-        console.log(list.display())
-
         list.addBack(33)
-        console.log(list.display())
+        list.prependVal(44,3)
+        list.appendVal(55,11)
+        list.removeVal(list,33)
 
 
 
