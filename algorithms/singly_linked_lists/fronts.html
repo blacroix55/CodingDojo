@@ -90,6 +90,7 @@
                     myList.push(current.value)
                     current=current.next
                 }
+                console.log (myList)
                 return myList
             }
             min() {
@@ -145,16 +146,19 @@
             addBack(value) {
                 console.log ("addBack initiated")
                 var newNode = new Node(value)
-
-                var current=this.head
-                while (current) {
-                    if (!current.next) {
-                        current.next=newNode
-                        break
+                if (!this.head) {
+                    this.head = newNode
+                } else {
+                    var current=this.head
+                    while (current) {
+                        if (!current.next) {
+                            current.next=newNode
+                            break
+                        }
+                        current=current.next
                     }
-                    current=current.next
                 }
-                console.log(list.display())
+                console.log(this.display())
 
                 return this
             }
@@ -249,6 +253,47 @@
                 return this
             }
         }
+        function secondToLast(list) {
+            console.log ("secondToLast initiated")
+            var current=list.head
+            if ( current.next == null ) {
+                console.log ("String length too short")
+                return false
+            }
+            while (current) {
+                if (current.next.next == null) {
+                    console.log ("Second to last value = "+current.value)
+                    return current.value
+                }
+                current=current.next
+            }
+        }
+        // SList: Delete Given Node
+        // Create ListNode method removeSelf() to disconnect (remove) itself from linked lists that include it. Note: the node might be the first in a list (it won’t be the last), and you do NOT have a pointer to the previous node. Also, don’t lose any subsequent nodes pointed to by .next.
+        // I do not understand the question... it sounds like the removeVal() method already done above, see lines 224-250.
+
+        function copySList(list) {
+            console.log ("copySList initiated")
+            var current=list.head
+            
+            // initialize a new slist, copy first value to new node
+            const newList= new SList()
+            
+            while (current) {
+                console.log("Iterating")
+                console.log("current.value="+current.value)
+                console.log(newList)
+                newList.addBack(current.value)
+                // if there is no next node, go ahead and return the new list
+                if (current.next == null) {
+                    return newList
+                }
+                current=current.next
+            }
+            console.log ("exiting")
+            newlist.display()
+            return newList
+        }
         
         
 
@@ -286,11 +331,15 @@
         list.appendVal(55,11)
         list.removeVal(list,33)
 
+        secondToLast(list)
+        newList=copySList(list)
+        newList.addFront(111)
+        list.addFront(222)
 
+        list.display()
+        newList.display()
 
     </script>
 </head>
 <body>
-    
-</body>
-</html>
+ 
