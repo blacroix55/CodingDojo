@@ -1,6 +1,7 @@
 from flask import render_template, request, redirect
 from config import db
 from models import *
+import re
 
 ###################
 #
@@ -40,8 +41,23 @@ def linecard_list(router_id):
             'linecard_type_id': linecard.linecard_type_id,
             'router_linecard_id': linecard.id,
             'num_ports': linecard.linecard_type.num_ports,
-            'sql_data': linecard
+            'sql_data': linecard,
+            'interfaces': []
         }
+
+        # create a list of dictionaries for tracking interfaces by port number
+        for i in range(linecard.linecard_type.num_ports):
+            linecard_list[linecard.router_slot]['interfaces'].append({})
+
+        # Stuff interfaces into the correct port offset
+        for interface in linecard.interfaces_installed:
+            print ("interface data =",interface.linecard_port_num,interface.comment,interface.ip_address_v4)
+            linecard_list[linecard.router_slot]['interfaces'][int(interface.linecard_port_num)]['interface_id']=interface.id
+            # linecard_list[linecard.router_slot]['interfaces'][int(interface.linecard_port_num)]['port']=interface.linecard_port_num
+            linecard_list[linecard.router_slot]['interfaces'][int(interface.linecard_port_num)]['comment']=interface.comment
+            linecard_list[linecard.router_slot]['interfaces'][int(interface.linecard_port_num)]['ip_address']=interface.ip_address_v4
+
+
 
     # print and return results
     print (linecard_list)
@@ -281,6 +297,7 @@ def router_update(router_id):
 
                 ## NOTE: IF CHANGING TO A SMALLER SIZED LINE CARD, NEED TO HANDLE FEWER ROUTER CARDS.
 
+        # LINECARD FORM DATA
         elif 'slot' in key:
             slot=int(key[5:])
             if value == "None":
@@ -312,7 +329,7 @@ def router_update(router_id):
                     router_slot=slot
                 )
                 print (data)
-                db.session.add(data)
+                print("linecard add response=",db.session.add(data))
                 db.session.commit()
             else:
                 print ("updating existing router_linecard entry")
@@ -321,6 +338,49 @@ def router_update(router_id):
                 data=linecards.query.get(router_linecard_id)
                 data.linecard_type_id=new_linecard_type_id
                 db.session.commit()
+
+        # INTERFACE FORM DATA
+        elif 'interface_' in key:
+            print ("*"*80)
+            print ("Interface data found!")
+
+            if 'interface_type' in key:
+                print ("Found interface type:",value)
+
+
+            elif 'interface_profile' in key:
+                print ("Found interface profile:",value)
+
+
+            elif 'interface_address' in key:
+                print ("Found interface address:",value)
+        
+            
+            elif 'interface_comment' in key:
+                data=re.split('_|/',key)
+                slot=int(data[2])
+                port=int(data[3])
+                comment=value
+                
+                # If the comment key exists in the interface already, compare and update it; otherwise, add it.
+                if ('comment' in current_cards[slot]['interfaces'][port] ):
+                    print ("interface",slot,port,"has a comment key already")
+                else:
+                    print ("interface",slot,port,"DOES NOT have a comment key yet")
+
+                print ("found interface comment:",value)
+                print ("slot/port=",slot,"/",port)
+                print ("linecard_id =",current_cards[slot])
+                # if ( slot==0) and (port==0 ):
+                #     print ("testing of adding interfaces data to the databse with 0/0:")
+                #     data=interfaces(
+                #         linecard_id=current_cards[slot]['router_linecard_id'],
+                #         linecard_port_num=port,
+                #         ip_address_v4="192.168.50.2/24",
+                #         comment=comment               
+                #     )
+                #     db.session.add(data)
+                #     db.session.commit()
             
     # Snagging current DB info to re-populate content window
     data = routers.query.get(router_id)
