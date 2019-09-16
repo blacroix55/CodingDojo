@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0", initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function rSigma(num) {
+            var num=parseInt(num)
+            if (num<=0) {
+                return 0
+            } else {
+                return (num + rSigma(num-1))
+            }
+        }
+        function rFact(num) {
+            var num=parseInt(num)
+            if (num<=1) {
+                return 1
+            } else {
+                return (num*rFact(num-1))
+            }
+
+        }
+        function floodFill(matrix,startXY,newColor,colorToChange) {
+            // grab height, width, x, y, old/new/current colors
+            const height=matrix.length
+            const width=matrix[0].length
+            const x=startXY[0]
+            const y=startXY[1]
+            console.log("-------------------------------------------")
+            console.log("entering iteration; x=",x,"; y=",y)
+
+
+            // First time through, colorToChange will not be set; snag that for recursions later
+            if (colorToChange == undefined) {
+                console.log ("setting color to change (first time through)")
+                colorToChange=matrix[y][x]
+            }
+
+            // exit if unneeded
+            currentColor=matrix[y][x]
+            if (currentColor !== colorToChange ) {
+                console.log ("x=",x,"; y=",y,"; was",currentColor," did not match",colorToChange)
+                return
+            }
+
+            // change current position to new color
+            console.log ("x=",x,"; y=",y,"; changing from",currentColor,"to",newColor)
+            matrix[y][x]=newColor
+
+            // recursively walk up/down/back/forth
+            if (x+1 < width) {
+                floodFill(matrix,[x+1,y],newColor,colorToChange)
+            }
+            if (x-1 >= 0) {
+                floodFill(matrix,[x-1,y],newColor,colorToChange)
+            }
+            if (y+1 < height) {
+                floodFill(matrix,[x,y+1],newColor,colorToChange)
+            }
+            if (y-1 >= 0) {
+                floodFill(matrix,[x,y-1],newColor,colorToChange)
+            }
+
+
+            return matrix
+        }
+
+        console.log(rSigma(5))  // 15
+        console.log(rSigma(2.5)) // 3
+        console.log(rSigma(-1)) // 0
+
+        console.log(rFact(0)) // 1
+        console.log(rFact(3)) // 6
+        console.log(rFact(6.5)) // 720
+        
+        canvas = [
+            [3,2,3,4,3],
+            [2,3,3,4,3],
+            [7,3,3,5,3],
+            [6,5,3,4,3],
+            [1,2,3,3,3]
+        ]
+    
+        console.log(floodFill(canvas,[2,2],1))
+
+
+    </script>
+</body>
+</html>
