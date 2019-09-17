@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function rBinarySearch (arr,searchFor,idxLow,idxHigh) {
+            // Setting boundaries if the first time through recursive search
+            if (idxLow == undefined) {
+                var idxLow=0
+            }
+            if (idxHigh == undefined) {
+                var idxHigh=arr.length-1
+            }   
+            if (isFound == undefined) {
+                var isFound=false
+            }
+
+            
+
+            // Set up for tests
+            var testIdx=Math.floor((idxLow + idxHigh)/2)
+            //console.log (idxLow,idxHigh,testIdx)
+
+            // two exiting conditions
+            if (arr[testIdx] == searchFor ) {
+                //console.log ("found it")
+                isFound=true
+                return isFound
+            } else if (idxHigh-idxLow==1 ) {
+                isFound=false
+                return isFound
+            }
+
+
+            // recusions 
+            if (arr[testIdx] < searchFor) {
+                //console.log (searchFor,"is lower than",arr[testIdx])
+                isFound= rBinarySearch(arr,searchFor,testIdx,idxHigh)
+            } else if (arr[testIdx] > searchFor) {
+                //console.log (searchFor,"is higher than",arr[testIdx])
+                isFound= rBinarySearch(arr,searchFor,idxLow,testIdx)
+            } 
+
+            return isFound
+            
+        }
+        console.log(rBinarySearch([1,3,5,6],4))
+        console.log(rBinarySearch([4,5,6,8,12],5))
+
+        function rGCF(num1,num2) {
+            // // Via subtraction
+            // if (num1==num2) {
+            //     return num1
+            // } 
+            // if (num1>num2) {
+            //     x = rGCF(num1-num2,num2)
+            // } else {
+            //     x= rGCF(num1,num2-num1)
+            // }
+            // return x
+            
+            // function via division, looking for remainder of 0
+            // re-order to large, then small, then use modulus
+            if (num1>num2) {
+                var large=num1
+                var small=num2
+            } else {
+                var large=num2
+                var small=num1
+            }
+            
+            if (small==0) {
+                return large
+            } 
+            x=rGCF(small, large%small)
+            return x
+        }
+        console.log (rGCF(4,16))
+        console.log (rGCF(16,16))
+        console.log (rGCF(16,4))
+        console.log (rGCF(8,9))
+        console.log (rGCF(123456,987654))
+
+        // Tarai, but I'm not getting 4K recursions - appears this is more efficient
+        // than the expression in the text...
+        function tarai(x,y,z) {
+            console.log("running")
+            if (x<=y) {
+                return y
+            }
+            var new_x=tarai(x-1,y,z)
+            var new_y=tarai(y-1,z,x)
+            if (new_x<=new_y) {
+                return new_y
+            }
+            var new_z=tarai(z-1,x,y)
+            tarai(new_x,new_y,new_z)
+        }
+
+        console.log(tarai(10,2,9))
+
+        
+        //in-order subsets
+        function getSubsets(str, offset, length, subsets) {
+            // base case, first time through split string, zero out offset+subsets list
+            if (subsets == undefined ){
+                console.log("first time through, running base case")
+                var offset=0
+                var subsets=[""]
+                var length=1
+            }
+            
+            var char=[]
+            while ((offset+length) < (str.length+1)) {
+                // length=0, offset=0
+                for (let i=offset; i<(offset+length); i++) {
+                    char.push(str[i])
+                }
+                subsets.push(char.join())
+                offset++
+                char=[]
+                console.log (subsets)
+            }
+
+            // recursively iterate, increasing length
+        
+            if (length<str.length) {
+                getSubsets(str, 0, ++length, subsets)
+            }
+            
+
+            return subsets
+        }
+        console.log (getSubsets('abc'))
+        
+    </script>
+</body>
+</html>
