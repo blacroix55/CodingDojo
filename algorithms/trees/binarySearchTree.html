@@ -115,10 +115,102 @@
                 }
                 return isFound
             }
+            min(testNode,minValue) {
+                if (testNode == undefined) {   
+                    console.log("--------- INITIAL MIN CALL INITIATED ---------")
+                    if (this.root==null) {
+                        return false
+                    } 
+                    testNode = this.root
+                    var minValue = testNode.value
+                    console.log ("testNode =",testNode)
+                    console.log ("minValue=",minValue)
+
+                } else {
+                    console.log("++ recursive call initiated ++")
+                }        
+                // if testNode.value < minValue, set new minValue
+                console.log ("testnode value is",testNode.value,"; minValue =",minValue)
+                if (testNode.value < minValue) {
+                    console.log ("new low value of",testNode.value,"found")
+                    minValue = testNode.value
+                }
+
+                // if testNode.left exists, set it as new testNode and recurse
+                if (testNode.left != null) {
+                    minValue = thisTree.min(testNode.left,minValue)
+                }
+                return minValue
+            }
+            max(testNode,maxValue) {
+                if (testNode == undefined) {   
+                    console.log("--------- INITIAL MAX CALL INITIATED ---------")
+                    if (this.root==null) {
+                        return false
+                    } 
+                    testNode = this.root
+                    var maxValue = testNode.value
+                    console.log ("testNode =",testNode)
+                    console.log ("maxValue=",maxValue)
+
+                } else {
+                    console.log("++ recursive call initiated ++")
+                }        
+                // if testNode.value < minValue, set new minValue
+                console.log ("testnode value is",testNode.value,"; maxValue =",maxValue)
+                if (testNode.value > maxValue) {
+                    console.log ("new high value of",testNode.value,"found")
+                    maxValue = testNode.value
+                }
+
+                // if testNode.left exists, set it as new testNode and recurse
+                if (testNode.right != null) {
+                    maxValue = thisTree.max(testNode.right,maxValue)
+                }
+                return maxValue
+            }
+            isEmpty() {
+                if (this.root==null) {
+                    return true
+                }
+                return false
+            }
+            size(testNode, size) {
+                if (testNode == undefined) {   
+                    console.log("--------- INITIAL CONTAINS CALL INITIATED ---------")
+                    if (this.root==null) {
+                        return null
+                    } 
+                    testNode = this.root
+                    var size=0
+                    console.log ("testNode =",testNode)
+                } else {
+                    console.log("++ recursive call initiated ++")
+                }        
+                // is value >= testNode.value?
+                if ( testNode.value) {
+                    console.log("****** VALUE EXISTS ******")
+                    size++
+                } 
+                
+                // if testNode.right exists, make recursive call
+                if (testNode.right != null) { 
+                    console.log ("changing testNode.right to be new testNode, then recursing")
+                    size=thisTree.size(testNode.right,size)
+                }
+                // if testNode.left exists, make recursive call
+                if (testNode.left != null) { 
+                    console.log ("changing testNode.left to be new testNode, then recursing")
+                    size=thisTree.size(testNode.left,size)
+                }
+                return size
+            }
         }
 
 
         thisTree=new BST()
+        console.log(thisTree.isEmpty()) // true
+
         console.log(thisTree)
         thisTree.add(7)
         thisTree.add(6)
@@ -128,10 +220,21 @@
         thisTree.add(12)
         thisTree.add(14)
         thisTree.add(16)
+        thisTree.add(18)
+        thisTree.add(11)
 
         console.log(thisTree.contains(16)) // true
         console.log(thisTree.contains(17)) // false
         console.log(thisTree.contains(1)) // false
+
+        console.log(thisTree.min()) // 5
+        console.log(thisTree.max()) // 16
+
+
+        console.log(thisTree.size()) // 10
+
+        console.log(thisTree.isEmpty()) // false
+
 
         console.log(thisTree)
 
