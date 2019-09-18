@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class BTNode {
+            constructor(value) {
+                this.value = value;
+                this.left = null;
+                this.right = null;
+            }
+        }
+        class BST {
+            constructor() {
+                this.root = null;
+            }
+            
+
+
+            add(value, testNode) {
+                /* 
+                value is MANDATORY
+                testNode MUST only be used in recursive calls
+                */
+
+                // BASE CASE - if this.root is null, create node and add value, assigning this
+                // newNode to be this.root
+                if (testNode == undefined) {   
+                    console.log("--------- INITIAL ADD CALL INITIATED ---------")
+                    if (this.root==null) {
+                        console.log ("this.root null - INITIAL RUN!!!")
+                        var newNode=new BTNode(value)
+                        this.root=newNode
+                        console.log ("newNode=",newNode)
+                        console.log ("this.root=",this.root)
+                        return this
+                    } 
+                    testNode = this.root
+                    console.log ("testNode =",testNode)
+                } else {
+                    console.log("++ recursive call initiated ++")
+                }        
+                // is value >= testNode.value?
+                if (value >= testNode.value ){
+                    console.log ("new value",value," is equal or larger than testNode.value",testNode.value)
+                    // is testNode.right null?
+                    if (testNode.right == null) {
+                        // if so, create node with new value, set node as testNode.right
+                        console.log ("adding new node to the right")
+                        var newNode = new BTNode(value)
+                        testNode.right = newNode
+                    } else {
+                        // otherwise, recurse using testNode.right node as testNode
+                        console.log ("changing testNode.right to be new testNode, then recursing")
+                        thisTree.add(value, testNode.right)
+                    }
+                } else {
+                    console.log ("new value",value," is LESS than testNode.value",testNode.value)
+                    // is testNode.left null?
+                    if (testNode.left == null) {
+                        // if so, create node with new value, set node as testNode.left
+                        console.log ("adding new node to the left")
+                        var newNode = new BTNode(value)
+                        testNode.left = newNode
+                    } else {
+                        // otherwise, recurse using testNode.left node as testNode
+                        console.log ("changing testNode.left to be new testNode, then recursing")
+                        thisTree.add(value, testNode.left)
+                    }
+                } 
+                return this
+            }
+        }
+        thisTree=new BST()
+        console.log(thisTree)
+        thisTree.add(7)
+        thisTree.add(6)
+        thisTree.add(5)
+        thisTree.add(10)
+        thisTree.add(9)
+        thisTree.add(12)
+        thisTree.add(14)
+        thisTree.add(16)
+
+        console.log(thisTree)
+
+    </script>
+</body>
+</html>
