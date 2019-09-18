@@ -74,8 +74,50 @@
                     }
                 } 
                 return this
+            
+            }
+            contains(value, testNode) {
+                if (testNode == undefined) {   
+                    console.log("--------- INITIAL CONTAINS CALL INITIATED ---------")
+                    if (this.root==null) {
+                        return false
+                    } 
+                    testNode = this.root
+                    var isFound=false
+                    console.log ("testNode =",testNode)
+                } else {
+                    console.log("++ recursive call initiated ++")
+                }        
+                // is value >= testNode.value?
+                if (value == testNode.value) {
+                    console.log("****** VALUE FOUND ******")
+                    isFound=true
+                } else if (value > testNode.value ) {
+                    console.log ("new value",value," is equal or larger than testNode.value",testNode.value)
+                    // is testNode.right null?
+                    if (testNode.right == null) {
+                        isFound=false
+                    } else {
+                        // otherwise, recurse using testNode.right node as testNode
+                        console.log ("changing testNode.right to be new testNode, then recursing")
+                        isFound=thisTree.contains(value, testNode.right)
+                    }
+                } else {
+                    console.log ("new value",value," is LESS than testNode.value",testNode.value)
+                    // is testNode.left null?
+                    if (testNode.left == null) {
+                        isFound=false
+                    } else {
+                        // otherwise, recurse using testNode.left node as testNode
+                        console.log ("changing testNode.left to be new testNode, then recursing")
+                        isFound=thisTree.contains(value, testNode.left)
+                    }
+                }
+                return isFound
             }
         }
+
+
         thisTree=new BST()
         console.log(thisTree)
         thisTree.add(7)
@@ -86,6 +128,10 @@
         thisTree.add(12)
         thisTree.add(14)
         thisTree.add(16)
+
+        console.log(thisTree.contains(16)) // true
+        console.log(thisTree.contains(17)) // false
+        console.log(thisTree.contains(1)) // false
 
         console.log(thisTree)
 
