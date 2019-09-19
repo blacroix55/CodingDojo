@@ -238,6 +238,19 @@ def router_index():
     print ("router types:",rtr_types)
     return render_template("partial/router_index.html", routers=data, rtr_types=rtr_types )
 
+def router_confgen(router_id):
+    # Snagging current DB info to re-populate content window
+    data = routers.query.get(router_id)
+    print ("data = ",data.__dict__)
+    rtr_types=router_types.query.all()
+    lc_types=linecard_types.query.all()
+    int_types=interface_types.query.all()
+    int_profiles=int_profile_types.query.all()
+    current_linecards=linecard_list(router_id)
+    
+    return render_template("partial/router_confgen.html", router=data,rtr_types=rtr_types,linecard_types=lc_types,current_linecards=current_linecards, interface_types=int_types, int_profiles=int_profiles)
+
+
 def router_add():
     consoleMsg('User requested to create new router')
     print(request.form)

@@ -1,0 +1,35 @@
+<pre>
+    interfaces {
+{%- for i in range(router.router_type.num_slots) %}
+    {%- set linecard=current_linecards[i] %}
+    {%- if linecard.linecard_type_id is defined %}   
+    {%- for port in range(linecard.num_ports) %}
+        {%- set interface=linecard.interfaces[port]%}
+        {%- set profile_type=int_profiles[interface.int_profile_type_id-1].profile_type %}
+        et-{{i}}/{{port}} {
+            {%- if profile_type == "unused" %}
+            decription :::UNUSED:::
+            disable
+            {%- else %}
+            description "{{interface.comment}}""
+            {%- if profile_type == "backbone" %}
+            mtu 4514;
+            {%- endif %}
+            unit 0 {
+                family inet {
+                    address {{ interface.ip_address }}
+                }
+                {%- if profile_type=="backbone" %}
+                family iso
+                {%- endif %}
+            }
+            {%- endif %}
+        }
+    {%- endfor %}
+    {%- endif %}
+{%- endfor %}
+    }
+
+</pre>
+
+             

@@ -35,3 +35,6 @@ app.add_url_rule("/router/delete/<int:router_id>", view_func=router_delete, meth
 app.add_url_rule("/router/edit/<int:router_id>", view_func=router_edit, methods=["POST"])
 app.add_url_rule("/router/update/<int:router_id>",view_func=router_update, methods=["POST"])
 
+# CONFIG GENERATION
+app.add_url_rule("/router/confgen/<int:router_id>", view_func=router_confgen, methods=["POST"])
+
