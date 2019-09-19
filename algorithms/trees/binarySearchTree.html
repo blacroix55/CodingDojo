@@ -205,6 +205,43 @@
                 }
                 return size
             }
+            leftHeight(root) {
+                if (root===undefined) {
+                    root=this.root
+                    var leftHeight=0
+                }
+                if (root === null) {
+                    return true
+                }
+                leftHeight=this.leftHeight(root.left)+1
+                return leftHeight
+            }
+            rightHeight(root) {
+                if (root===undefined) {
+                    root=this.root
+                    var rightHeight=0
+                }
+                if (root === null) {
+                    return true
+                }
+                rightHeight=this.rightHeight(root.right)+1
+                return rightHeight
+            }
+            height(root) {
+                var left=this.leftHeight()
+                var right=this.rightHeight()
+                console.log('left =',left,"; right =",right)
+                return Math.max(left,right)
+            }
+            isBalanced(root) {
+                var left=this.leftHeight()
+                var right=this.rightHeight()
+                console.log('left =',left,"; right =",right)
+                if (left-right <=1 && left-right >= -1) {
+                    return true
+                }
+                return false
+            }
         }
 
 
@@ -235,6 +272,9 @@
 
         console.log(thisTree.isEmpty()) // false
 
+        console.log("Height:")
+        console.log(thisTree.height())
+        console.log(thisTree.isBalanced())
 
         console.log(thisTree)
 
