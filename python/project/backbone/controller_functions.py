@@ -29,14 +29,17 @@ def linecard_list(router_id):
 
     # Build out a blank list-of-dictionaries structure for the current router, based on number of linecard slots available
     linecard_list=[]
-    for i in range(router.router_type.num_slots+10):    
-        # added 10 to num_slots; if a router were downsized, it may still have router linecards in the db.  it would be more
-        # graceful to delete linecards table entries for cards that don't have slots when changing router_type field,
-        # but this is a class project and doesn't have to be perfect, this is quicker, so that's what I'm doing.  :)
+    for i in range(router.router_type.num_slots):    
         linecard_list.append({})
     
     # Iterate through current linecards, updating the dict entry for the linecard based on it's index
     for linecard in router.linecards_installed:
+
+        if linecard.router_slot > router.router_type.num_slots:
+            continue
+            # this is put in place in the case we "downsize" a router without emptying out a card in a slot that is
+            # going away... they may remain in the DB with a router_slot that is out of range of the new router type.
+
         linecard_list[linecard.router_slot]={
             'linecard_type_id': linecard.linecard_type_id,
             'router_linecard_id': linecard.id,
@@ -56,7 +59,8 @@ def linecard_list(router_id):
             # linecard_list[linecard.router_slot]['interfaces'][int(interface.linecard_port_num)]['port']=interface.linecard_port_num
             linecard_list[linecard.router_slot]['interfaces'][int(interface.linecard_port_num)]['comment']=interface.comment
             linecard_list[linecard.router_slot]['interfaces'][int(interface.linecard_port_num)]['ip_address']=interface.ip_address_v4
-
+            linecard_list[linecard.router_slot]['interfaces'][int(interface.linecard_port_num)]['interface_type_id']=interface.interface_type_id
+            linecard_list[linecard.router_slot]['interfaces'][int(interface.linecard_port_num)]['int_profile_type_id']=interface.int_profile_type_id
 
 
     # print and return results
@@ -331,6 +335,8 @@ def router_update(router_id):
                 print (data)
                 print("linecard add response=",db.session.add(data))
                 db.session.commit()
+                db.session.refresh(data)
+                linecard_id=data.id
             else:
                 print ("updating existing router_linecard entry")
                 router_linecard_id=current_cards[slot]['router_linecard_id']
@@ -339,48 +345,62 @@ def router_update(router_id):
                 data.linecard_type_id=new_linecard_type_id
                 db.session.commit()
 
+
         # INTERFACE FORM DATA
         elif 'interface_' in key:
             print ("*"*80)
             print ("Interface data found!")
 
+            # Data elements needed for ALL interface keys:
+            data=re.split('_|/',key)
+            slot=int(data[2])
+            port=int(data[3])
+
+            # if interface exists, grab PK (interface_id); if not, create DB entry
+            try:
+                interface_id=current_cards[slot]['interfaces'][port]['interface_id']
+            except:
+                data=interfaces(
+                    linecard_port_num=port,
+                    linecard_id=current_cards[slot]['router_linecard_id']
+                )
+                db.session.add(data)
+                db.session.commit()
+                db.session.refresh(data)
+                interface_id=data.id
+                current_cards[slot]['interfaces'][port]['interface_id']=interface_id
+                print ("interface did not have an entry; new interface_id =",interface_id)
+
+
             if 'interface_type' in key:
                 print ("Found interface type:",value)
-
+                data=interfaces.query.get(interface_id)
+                data.interface_type_id=value
+                db.session.commit()
 
             elif 'interface_profile' in key:
                 print ("Found interface profile:",value)
-
+                data=interfaces.query.get(interface_id)
+                data.int_profile_type_id=value
+                db.session.commit()
 
             elif 'interface_address' in key:
                 print ("Found interface address:",value)
-        
+                data=interfaces.query.get(interface_id)
+                data.ip_address_v4=value
+                db.session.commit()
             
             elif 'interface_comment' in key:
-                data=re.split('_|/',key)
-                slot=int(data[2])
-                port=int(data[3])
-                comment=value
+                data=interfaces.query.get(interface_id)
+                data.comment=value
+                db.session.commit()
+
                 
-                # If the comment key exists in the interface already, compare and update it; otherwise, add it.
-                if ('comment' in current_cards[slot]['interfaces'][port] ):
-                    print ("interface",slot,port,"has a comment key already")
-                else:
-                    print ("interface",slot,port,"DOES NOT have a comment key yet")
 
                 print ("found interface comment:",value)
                 print ("slot/port=",slot,"/",port)
                 print ("linecard_id =",current_cards[slot])
-                # if ( slot==0) and (port==0 ):
-                #     print ("testing of adding interfaces data to the databse with 0/0:")
-                #     data=interfaces(
-                #         linecard_id=current_cards[slot]['router_linecard_id'],
-                #         linecard_port_num=port,
-                #         ip_address_v4="192.168.50.2/24",
-                #         comment=comment               
-                #     )
-                #     db.session.add(data)
-                #     db.session.commit()
+
             
     # Snagging current DB info to re-populate content window
     data = routers.query.get(router_id)

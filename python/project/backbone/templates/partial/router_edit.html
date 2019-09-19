@@ -3,13 +3,18 @@
         <h4 class= "text-centered">Edit Router: {{router.name}}</h4>
     </div>
     <div class = "row">
-        <input name='router_name' value="{{router.name}}">
-        <select class='form_control' function='index' name='router_type_id'>
-            {% for rtr_type in rtr_types %}
-            <option {% if rtr_type.id == router.router_type.id %}selected {% endif %}value='{{rtr_type.id}}'>{{rtr_type.model}}</option>
-            {% endfor %}
-        </select>
-        <button class='form_button' data-url='/router/update/{{router.id}}' type='button'>Update</button> 
+        <div class = "col-6">
+            <input name='router_name' value="{{router.name}}">
+            <select class='form_control' function='index' name='router_type_id'>
+                {% for rtr_type in rtr_types %}
+                <option {% if rtr_type.id == router.router_type.id %}selected {% endif %}value='{{rtr_type.id}}'>{{rtr_type.model}}</option>
+                {% endfor %}
+            </select>
+            <button class='form_button btn-secondary' data-url='/router/update/{{router.id}}' type='button'>Update</button> 
+        </div>
+        <div class = "col-6">
+            <button class='action_button btn-primary' data-url='/router/confgen/{{router.id}}' type='button'>GENERATE CONFIGS</button> 
+        </div>
     </div>
     <div class = "row">
         <table class='table table-hover'>
@@ -53,22 +58,31 @@
                         <td>
                             <select class='form_control' name='interface_type_{{i}}/{{port}}''>
                             {% for interface_type in interface_types %}
-                                <option value="{{interface_type.id}}">{{interface_type.description}}</option>                      
+                                
+                                <option {% if interface_type.id == current_linecards[i].interfaces[port].interface_type_id %}selected {% endif %}value="{{interface_type.id}}">{{interface_type.description}}</option>                      
                             {% endfor %}
                             </select>
                         </td>
                         <td>
                             <select class='form_control' name='interface_profile_{{i}}/{{port}}'>
                             {% for int_profile in int_profiles %}
-                                <option value="{{int_profile.id}}">{{int_profile.description}}</option>                      
+                                <option {% if int_profile.id == current_linecards[i].interfaces[port].int_profile_type_id %}selected {% endif %}value="{{int_profile.id}}">{{int_profile.profile_type}}</option>                      
                             {% endfor %}
                             </select>
                         </td>
                         <td>
+                            {% if current_linecards[i].interfaces[port].ip_address is defined %}
+                            <input name='interface_address_{{i}}/{{port}}' value="{{current_linecards[i].interfaces[port].ip_address}}">
+                            {% else %}
                             <input name='interface_address_{{i}}/{{port}}' value="192.168.0.0/24">
+                            {% endif %}
                         </td>
                         <td>
+                            {% if current_linecards[i].interfaces[port].comment is defined %}
+                            <input name='interface_comment_{{i}}/{{port}}' value="{{current_linecards[i].interfaces[port].comment}}">
+                            {% else %}
                             <input name='interface_comment_{{i}}/{{port}}' value="Comemnt blah blah">
+                            {% endif %}
                         </td>
                     </tr>
                     {% endfor %}
